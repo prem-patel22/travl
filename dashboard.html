@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Travl</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="travl-app" data-theme="light">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1 class="logo">Travl</h1>
+                    <span class="tagline">travel smarter</span>
+                </div>
+                
+                <nav class="main-nav">
+                    <button class="nav-btn active" data-tab="plan">
+                        <span class="nav-icon">🗺️</span>
+                        Plan
+                    </button>
+                    <button class="nav-btn" data-tab="discover">
+                        <span class="nav-icon">🔍</span>
+                        Discover
+                    </button>
+                    <button class="nav-btn" data-tab="trips">
+                        <span class="nav-icon">🧳</span>
+                        My Trips
+                    </button>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <div class="theme-slider">
+                            <span class="sun">☀️</span>
+                            <span class="moon">🌙</span>
+                        </div>
+                    </button>
+                    <div class="user-menu">
+                        <button class="user-btn" id="userMenuBtn">
+                            <span class="user-avatar" id="userAvatar">U</span>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <div class="user-info">
+                                <span class="user-name" id="userName">User Name</span>
+                                <span class="user-email" id="userEmail">user@email.com</span>
+                            </div>
+                            <div class="dropdown-actions">
+                                <a href="#" class="dropdown-item">Profile Settings</a>
+                                <a href="#" class="dropdown-item">Billing</a>
+                                <button class="dropdown-item logout-btn" id="logoutBtn">Sign Out</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main App Container -->
+        <main class="app-main">
+            <!-- Map Section -->
+            <section class="map-section">
+                <div id="map"></div>
+                <div class="map-overlay">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search destinations..." class="search-input" id="searchInput">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                    
+                    <div class="map-controls">
+                        <button class="control-btn primary" id="addDestination">
+                            <span class="btn-icon">+</span>
+                            Add Stop
+                        </button>
+                        <button class="control-btn secondary" id="suggestActivities">
+                            <span class="btn-icon">✨</span>
+                            AI Suggestions
+                        </button>
+                        <button class="control-btn outline" id="viewRoute">
+                            <span class="btn-icon">🛣️</span>
+                            View Route
+                        </button>
+                    </div>
+                </div>
+
+                <div class="trip-summary-card">
+                    <div class="summary-header">
+                        <h3 id="currentTripName">Rome Adventure</h3>
+                        <span class="trip-duration">3 days</span>
+                    </div>
+                    <div class="summary-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="totalStops">5</span>
+                            <span class="stat-label">Stops</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="totalDistance">12km</span>
+                            <span class="stat-label">Distance</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="totalBudget">$850</span>
+                            <span class="stat-label">Budget</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Planning Panel -->
+            <section class="planning-panel">
+                <div class="panel-header">
+                    <div class="trip-info">
+                        <h2>Your Itinerary</h2>
+                        <div class="trip-meta">
+                            <span class="date" id="tripDate">Dec 10-12, 2024</span>
+                            <span class="location" id="tripLocation">Rome, Italy</span>
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="export-btn" id="exportBtn">
+                            <span class="btn-icon">📤</span>
+                            Export
+                        </button>
+                        <button class="new-trip-btn" id="newTripBtn">
+                            <span class="btn-icon">+</span>
+                            New Trip
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="itinerary-container">
+                    <div class="timeline" id="itineraryTimeline">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- AI Suggestions Panel -->
+                <div class="ai-suggestions">
+                    <div class="suggestions-header">
+                        <h3>✨ AI Suggestions</h3>
+                        <button class="refresh-suggestions" id="refreshSuggestions">🔄</button>
+                    </div>
+                    <div class="suggestions-list" id="suggestionsList">
+                        <!-- Dynamic suggestions will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Add Destination Modal -->
+        <div class="modal-overlay" id="addDestinationModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Add New Destination</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="destinationForm">
+                        <div class="form-group">
+                            <label for="destinationName">Destination Name</label>
+                            <input type="text" id="destinationName" required placeholder="e.g., Colosseum">
+                        </div>
+                        <div class="form-group">
+                            <label for="destinationAddress">Address</label>
+                            <input type="text" id="destinationAddress" required placeholder="Enter address">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="activityDate">Date</label>
+                                <input type="date" id="activityDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="activityTime">Time</label>
+                                <input type="time" id="activityTime" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="activityDuration">Duration (hours)</label>
+                                <input type="number" id="activityDuration" min="0.5" step="0.5" value="2" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="activityCost">Cost ($ USD)</label>
+                                <input type="number" id="activityCost" min="0" step="0.01" placeholder="0.00" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityCategory">Category</label>
+                            <select id="activityCategory" required>
+                                <option value="">Select category</option>
+                                <option value="sightseeing">Sightseeing</option>
+                                <option value="food">Food & Dining</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="accommodation">Accommodation</option>
+                                <option value="transport">Transportation</option>
+                                <option value="activity">Activity</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityNotes">Notes (Optional)</label>
+                            <textarea id="activityNotes" placeholder="Any additional notes..."></textarea>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-outline close-modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Destination</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Trip Modal -->
+        <div class="modal-overlay" id="newTripModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Create New Trip</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="newTripForm">
+                        <div class="form-group">
+                            <label for="tripName">Trip Name</label>
+                            <input type="text" id="tripName" required placeholder="e.g., European Adventure">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tripStartDate">Start Date</label>
+                                <input type="date" id="tripStartDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tripEndDate">End Date</label>
+                                <input type="date" id="tripEndDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripDestination">Main Destination</label>
+                            <input type="text" id="tripDestination" required placeholder="e.g., Rome, Italy">
+                        </div>
+                        <div class="form-group">
+                            <label for="tripBudget">Total Budget ($ USD)</label>
+                            <input type="number" id="tripBudget" min="0" step="0.01" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripDescription">Description (Optional)</label>
+                            <textarea id="tripDescription" placeholder="Describe your trip..."></textarea>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-outline close-modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Create Trip</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>
