@@ -6,6 +6,15 @@
     <title>Travl - Smart Travel Planning</title>
     <link rel="stylesheet" href="styles/landing.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Apply saved theme ASAP to minimize flicker
+        try {
+            var t = localStorage.getItem('travl_theme');
+            if (t) {
+                document.documentElement.setAttribute('data-theme', JSON.parse(t));
+            }
+        } catch (e) {}
+    </script>
 </head>
 <body>
     <!-- Navigation -->

@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="styles/dashboard.css">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="scripts/utils.js"></script>
+    <script>
+        // Initialize theme before paint
+        if (typeof initializeTheme === 'function') {
+            initializeTheme();
+        } else {
+            try {
+                var t = localStorage.getItem('travl_theme');
+                if (t) {
+                    document.documentElement.setAttribute('data-theme', JSON.parse(t));
+                }
+            } catch (e) {}
+        }
+    </script>
 </head>
 <body>
     <div class="travl-app" data-theme="light">

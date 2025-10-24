@@ -12,6 +12,15 @@
     --success: #10b981;
 }
 
+:root[data-theme='dark'] {
+    --bg-primary: #0b1220;
+    --bg-secondary: #0f172a;
+    --text-primary: #e5e7eb;
+    --text-secondary: #cbd5e1;
+    --text-muted: #9ca3af;
+    --border: #1f2937;
+}
+
 * {
     margin: 0;
     padding: 0;

@@ -6,6 +6,20 @@
     <title>Login - Travl</title>
     <link rel="stylesheet" href="styles/auth.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="scripts/utils.js"></script>
+    <script>
+        // Initialize theme early to avoid flash
+        if (typeof initializeTheme === 'function') {
+            initializeTheme();
+        } else {
+            try {
+                var t = localStorage.getItem('travl_theme');
+                if (t) {
+                    document.documentElement.setAttribute('data-theme', JSON.parse(t));
+                }
+            } catch (e) {}
+        }
+    </script>
 </head>
 <body>
     <div class="auth-container">

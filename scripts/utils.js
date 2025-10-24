@@ -39,7 +39,6 @@ class AuthManager {
     static logout() {
         StorageManager.removeItem('current_user');
         StorageManager.removeItem('current_trip');
-        StorageManager.removeItem('theme');
         window.location.href = 'index.html';
     }
 

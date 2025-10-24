@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMap();
     loadSampleData();
     setupEventListeners();
+    setupSearchFiltering();
 
     // Dashboard functionality
     function loadUserData() {
@@ -347,6 +348,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Modal functionality
         setupModals();
+    }
+
+    function setupSearchFiltering() {
+        const input = document.getElementById('searchInput');
+        if (!input) return;
+        input.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            const currentTrip = StorageManager.getItem('current_trip');
+            if (!currentTrip || !Array.isArray(currentTrip.activities)) return;
+
+            // Filter activities by name, notes, category, or address
+            const filtered = currentTrip.activities.filter(a => {
+                const hay = [a.name, a.notes, a.category, a.address].filter(Boolean).join(' ').toLowerCase();
+                return hay.includes(query);
+            });
+
+            const filteredTrip = { ...currentTrip, activities: query ? filtered : currentTrip.activities };
+            renderItinerary(filteredTrip);
+            document.getElementById('totalStops').textContent = filteredTrip.activities.length;
+            const totalCost = filteredTrip.activities.reduce((sum, act) => sum + (act.cost || 0), 0);
+            document.getElementById('totalBudget').textContent = CurrencyFormatter.formatUSD(totalCost);
+        });
     }
 
     function showTabContent(tab) {
