@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>travl - Your Travel Companion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages/home.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="pages/destinations.html">Destinations</a></li>
+                <li><a href="pages/bookings.html" class="protected-route">My Bookings</a></li>
+                <li><a href="pages/profile.html" class="protected-route">Profile</a></li>
+                <li><a href="pages/about.html">About</a></li>
+                <li><a href="pages/contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-user-circle"></i>
+                <h2>Login to travl</h2>
+            </div>
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Login</button>
+            </form>
+            <div class="auth-switch">
+                <p>Don't have an account? <a href="#" id="switch-to-signup">Sign up</a></p>
+            </div>
+            <div id="login-error" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-user-plus"></i>
+                <h2>Create Account</h2>
+            </div>
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="signup-name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signup-password" name="password" placeholder="Create a password" minlength="6" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Create Account</button>
+            </form>
+            <div class="auth-switch">
+                <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+            </div>
+            <div id="signup-error" class="error-message" style="display: none;"></div>
+            <div id="signup-success" class="success-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Discover Your Next Adventure</h1>
+                <p class="hero-subtitle">Plan, book, and manage your travels all in one place with travl</p>
+                
+                <div class="search-box">
+                    <div class="search-tabs">
+                        <button class="search-tab active">Flights</button>
+                        <button class="search-tab">Hotels</button>
+                        <button class="search-tab">Packages</button>
+                    </div>
+                    
+                    <div class="search-form">
+                        <div class="search-field">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" placeholder="Where do you want to go?">
+                        </div>
+                        <div class="search-field">
+                            <i class="fas fa-calendar"></i>
+                            <input type="text" placeholder="Check-in" onfocus="(this.type='date')">
+                        </div>
+                        <div class="search-field">
+                            <i class="fas fa-calendar"></i>
+                            <input type="text" placeholder="Check-out" onfocus="(this.type='date')">
+                        </div>
+                        <div class="search-field">
+                            <i class="fas fa-user"></i>
+                            <select>
+                                <option value="1">1 Traveler</option>
+                                <option value="2">2 Travelers</option>
+                                <option value="3">3 Travelers</option>
+                                <option value="4">4 Travelers</option>
+                                <option value="5">5+ Travelers</option>
+                            </select>
+                        </div>
+                        <button class="btn-search">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose travl?</h2>
+                <p>Experience travel planning like never before</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Quick & Easy</h3>
+                    <p>Book your trips in minutes with our intuitive platform</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Your payments and data are protected with bank-level security</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Get help anytime with our round-the-clock customer support</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Best Prices</h3>
+                    <p>We guarantee the best prices for flights and hotels</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section class="destinations">
+        <div class="container">
+            <div class="section-header">
+                <h2>Popular Destinations</h2>
+                <p>Explore the world's most amazing places</p>
+            </div>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Bali">
+                        <div class="destination-overlay">
+                            <div class="destination-price">From $899</div>
+                        </div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Bali, Indonesia</h3>
+                        <p>Island of Gods with beautiful beaches and temples</p>
+                        <div class="destination-meta">
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                            <span><i class="fas fa-clock"></i> 7 Days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Paris">
+                        <div class="destination-overlay">
+                            <div class="destination-price">From $1,199</div>
+                        </div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Paris, France</h3>
+                        <p>The city of love with iconic landmarks and cuisine</p>
+                        <div class="destination-meta">
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                            <span><i class="fas fa-clock"></i> 5 Days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Tokyo">
+                        <div class="destination-overlay">
+                            <div class="destination-price">From $1,499</div>
+                        </div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Tokyo, Japan</h3>
+                        <p>Modern metropolis with rich culture and technology</p>
+                        <div class="destination-meta">
+                            <span><i class="fas fa-star"></i> 4.7</span>
+                            <span><i class="fas fa-clock"></i> 6 Days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Join thousands of travelers who trust travl for their adventures</p>
+                <button class="btn-primary btn-large" id="cta-signup">
+                    <i class="fas fa-rocket"></i>
+                    Get Started Today
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <h3><i class="fas fa-plane"></i> travl</h3>
+                        <p>Your trusted travel companion for unforgettable journeys around the world.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="pages/destinations.html">Destinations</a></li>
+                        <li><a href="pages/about.html">About Us</a></li>
+                        <li><a href="pages/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, Adventure City</p>
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> hello@travl.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 travl. All rights reserved. | Designed with <i class="fas fa-heart"></i> for travelers</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/components/navigation.js"></script>
+    <script src="js/pages/home.js"></script>
+</body>
+</html>

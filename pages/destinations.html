@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - travl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/destinations.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="../index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="destinations.html" class="active">Destinations</a></li>
+                <li><a href="bookings.html" class="protected-route">My Bookings</a></li>
+                <li><a href="profile.html" class="protected-route">Profile</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Include Modals -->
+    <div id="login-modal" class="modal">
+        <!-- Same as index.html -->
+    </div>
+
+    <div id="signup-modal" class="modal">
+        <!-- Same as index.html -->
+    </div>
+
+    <main class="destinations-page">
+        <section class="page-header">
+            <div class="container">
+                <h1>Explore Destinations</h1>
+                <p>Discover amazing places around the world</p>
+            </div>
+        </section>
+
+        <section class="destinations-content">
+            <div class="container">
+                <div class="content-layout">
+                    <!-- Filters Sidebar -->
+                    <aside class="filters-sidebar">
+                        <div class="filter-group">
+                            <h4>Price Range</h4>
+                            <div class="price-inputs">
+                                <input type="number" placeholder="Min" id="price-min">
+                                <span>to</span>
+                                <input type="number" placeholder="Max" id="price-max">
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <h4>Destinations</h4>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="europe" checked>
+                                <label for="europe">Europe</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="asia" checked>
+                                <label for="asia">Asia</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="america" checked>
+                                <label for="america">America</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="africa">
+                                <label for="africa">Africa</label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <h4>Rating</h4>
+                            <div class="star-rating">
+                                <div class="rating-option">
+                                    <input type="radio" id="rating-5" name="rating">
+                                    <label for="rating-5">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        4.5 & up
+                                    </label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" id="rating-4" name="rating">
+                                    <label for="rating-4">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        4.0 & up
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary btn-full" id="apply-filters">Apply Filters</button>
+                    </aside>
+
+                    <!-- Destinations Grid -->
+                    <div class="destinations-main">
+                        <div class="results-header">
+                            <h2>Popular Destinations</h2>
+                            <div class="sort-options">
+                                <select id="sort-by">
+                                    <option value="popular">Sort by: Popular</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Highest Rated</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="destinations-grid" id="destinations-grid">
+                            <!-- Destinations will be loaded here -->
+                        </div>
+
+                        <div class="load-more">
+                            <button class="btn-primary" id="load-more">Load More Destinations</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <!-- Same as index.html -->
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/navigation.js"></script>
+    <script src="../js/pages/destinations.js"></script>
+</body>
+</html>

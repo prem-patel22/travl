@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - travl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/contact.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="../index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="bookings.html" class="protected-route">My Bookings</a></li>
+                <li><a href="profile.html" class="protected-route">Profile</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="contact-page">
+        <section class="page-header">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>We're here to help with your travel needs</p>
+            </div>
+        </section>
+
+        <section class="contact-content">
+            <div class="container">
+                <div class="contact-layout">
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <h2>Get in Touch</h2>
+                        <p>Have questions about your trip? Need assistance with a booking? Our team is here to help you 24/7.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Phone</h3>
+                                    <p>+1 (555) 123-4567</p>
+                                    <span>Available 24/7</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Email</h3>
+                                    <p>support@travl.com</p>
+                                    <span>We'll respond within 24 hours</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Live Chat</h3>
+                                    <p>Available on our website</p>
+                                    <span>Instant help during business hours</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Office</h3>
+                                    <p>123 Travel Street<br>Adventure City, AC 12345</p>
+                                    <span>Visit us Monday-Friday, 9AM-6PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-container">
+                        <h2>Send us a Message</h2>
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-name">Full Name</label>
+                                    <input type="text" id="contact-name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-email">Email Address</label>
+                                    <input type="email" id="contact-email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-subject">Subject</label>
+                                <input type="text" id="contact-subject" name="subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-message">Message</label>
+                                <textarea id="contact-message" name="message" rows="6" placeholder="Tell us how we can help you..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-urgency">Urgency</label>
+                                <select id="contact-urgency" name="urgency">
+                                    <option value="low">Low - General inquiry</option>
+                                    <option value="medium">Medium - Need help within 48 hours</option>
+                                    <option value="high">High - Urgent assistance needed</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary btn-full">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Quick answers to common questions</p>
+                </div>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>How do I make a booking?</h3>
+                        <p>Simply search for your destination, select your dates and preferences, and follow the booking process. You'll receive a confirmation email with all the details.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>Can I modify my booking?</h3>
+                        <p>Yes, you can modify your booking through the "My Bookings" section in your account. Some changes may be subject to fees depending on the provider's policy.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>What is your cancellation policy?</h3>
+                        <p>Cancellation policies vary by provider. You can view the specific cancellation policy for your booking in the booking details. We recommend reviewing this before confirming.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3>Do you offer travel insurance?</h3>
+                        <p>Yes, we partner with leading travel insurance providers to offer comprehensive coverage options during the booking process.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <!-- Same as index.html -->
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/navigation.js"></script>
+    <script src="../js/pages/contact.js"></script>
+</body>
+</html>

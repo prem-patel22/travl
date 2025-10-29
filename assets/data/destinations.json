@@ -1,0 +1,28 @@
+{
+  "destinations": [
+    {
+      "id": 1,
+      "name": "Bali, Indonesia",
+      "description": "Island of Gods with beautiful beaches and temples",
+      "price": 899,
+      "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "rating": 4.8,
+      "duration": "7 Days",
+      "continent": "asia",
+      "highlights": ["Beaches", "Temples", "Culture", "Adventure"],
+      "includes": ["Flights", "Hotel", "Breakfast", "Airport Transfer"]
+    },
+    {
+      "id": 2,
+      "name": "Paris, France",
+      "description": "The city of love with iconic landmarks and cuisine",
+      "price": 1199,
+      "image": "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "rating": 4.9,
+      "duration": "5 Days",
+      "continent": "europe",
+      "highlights": ["Eiffel Tower", "Louvre", "Cuisine", "Shopping"],
+      "includes": ["Flights", "Hotel", "Breakfast", "City Tour"]
+    }
+  ]
+}

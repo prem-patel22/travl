@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - travl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/profile.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="../index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="bookings.html" class="protected-route">My Bookings</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-page">
+        <section class="page-header">
+            <div class="container">
+                <h1>My Profile</h1>
+                <p>Manage your account and preferences</p>
+            </div>
+        </section>
+
+        <section class="profile-content">
+            <div class="container">
+                <div class="profile-layout">
+                    <!-- Profile Sidebar -->
+                    <aside class="profile-sidebar">
+                        <div class="profile-card">
+                            <div class="profile-avatar" id="profile-avatar">
+                                <!-- Avatar will be generated from initials -->
+                            </div>
+                            <div class="profile-info">
+                                <h3 id="profile-name">Loading...</h3>
+                                <p id="profile-email">Loading...</p>
+                            </div>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-number" id="stat-trips">0</span>
+                                    <span class="stat-label">Trips</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number" id="stat-countries">0</span>
+                                    <span class="stat-label">Countries</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number" id="stat-days">0</span>
+                                    <span class="stat-label">Days</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nav class="profile-nav">
+                            <a href="#personal" class="nav-link active">Personal Info</a>
+                            <a href="#security" class="nav-link">Security</a>
+                            <a href="#preferences" class="nav-link">Preferences</a>
+                            <a href="#notifications" class="nav-link">Notifications</a>
+                        </nav>
+                    </aside>
+
+                    <!-- Profile Main Content -->
+                    <div class="profile-main">
+                        <div class="tab-content">
+                            <!-- Personal Info Tab -->
+                            <div class="tab-pane active" id="personal">
+                                <h2>Personal Information</h2>
+                                <form class="profile-form" id="personal-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="first-name">First Name</label>
+                                            <input type="text" id="first-name" name="firstName" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="last-name">Last Name</label>
+                                            <input type="text" id="last-name" name="lastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" id="phone" name="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthdate">Date of Birth</label>
+                                        <input type="date" id="birthdate" name="birthdate">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Security Tab -->
+                            <div class="tab-pane" id="security">
+                                <h2>Security Settings</h2>
+                                <form class="profile-form" id="security-form">
+                                    <div class="form-group">
+                                        <label for="current-password">Current Password</label>
+                                        <input type="password" id="current-password" name="currentPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-password">New Password</label>
+                                        <input type="password" id="new-password" name="newPassword" minlength="6">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirm New Password</label>
+                                        <input type="password" id="confirm-password" name="confirmPassword">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn-primary">Update Password</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Preferences Tab -->
+                            <div class="tab-pane" id="preferences">
+                                <h2>Travel Preferences</h2>
+                                <form class="profile-form" id="preferences-form">
+                                    <div class="form-group">
+                                        <label>Preferred Travel Style</label>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="style-adventure" name="travelStyle" value="adventure">
+                                            <label for="style-adventure">Adventure</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="style-luxury" name="travelStyle" value="luxury">
+                                            <label for="style-luxury">Luxury</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="style-budget" name="travelStyle" value="budget">
+                                            <label for="style-budget">Budget</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="currency">Preferred Currency</label>
+                                        <select id="currency" name="currency">
+                                            <option value="USD">US Dollar ($)</option>
+                                            <option value="EUR">Euro (€)</option>
+                                            <option value="GBP">British Pound (£)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn-primary">Save Preferences</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Notifications Tab -->
+                            <div class="tab-pane" id="notifications">
+                                <h2>Notification Settings</h2>
+                                <form class="profile-form" id="notifications-form">
+                                    <div class="form-group">
+                                        <label>Email Notifications</label>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="notif-promotions" name="promotions" checked>
+                                            <label for="notif-promotions">Promotions and Special Offers</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="notif-bookings" name="bookings" checked>
+                                            <label for="notif-bookings">Booking Confirmations</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="notif-reminders" name="reminders" checked>
+                                            <label for="notif-reminders">Travel Reminders</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn-primary">Save Settings</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <!-- Same as index.html -->
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/navigation.js"></script>
+    <script src="../js/pages/profile.js"></script>
+</body>
+</html>

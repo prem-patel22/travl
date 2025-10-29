@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - travl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/about.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="../index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="bookings.html" class="protected-route">My Bookings</a></li>
+                <li><a href="profile.html" class="protected-route">Profile</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="about-page">
+        <section class="page-header">
+            <div class="container">
+                <h1>About travl</h1>
+                <p>Your trusted travel companion for unforgettable journeys</p>
+            </div>
+        </section>
+
+        <section class="about-story">
+            <div class="container">
+                <div class="story-content">
+                    <div class="story-text">
+                        <h2>Our Story</h2>
+                        <p>Founded in 2023, travl was born from a simple idea: travel planning should be effortless, enjoyable, and accessible to everyone. We believe that everyone deserves to experience the joy of discovering new places and creating lasting memories.</p>
+                        <p>Our team of travel enthusiasts and technology experts came together to build a platform that simplifies the entire travel experience - from inspiration to booking and beyond.</p>
+                    </div>
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Our Team">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission-values">
+            <div class="container">
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Our Mission</h3>
+                        <p>To make travel planning seamless and accessible, empowering people to explore the world with confidence and create unforgettable experiences.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Our Vision</h3>
+                        <p>A world where everyone can easily discover and experience the beauty of different cultures and destinations.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Our Values</h3>
+                        <p>Trust, innovation, customer-centricity, and sustainability guide everything we do at travl.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Meet Our Team</h2>
+                    <p>The passionate people behind travl</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Team Member">
+                        </div>
+                        <h3>John Smith</h3>
+                        <p class="member-role">CEO & Founder</p>
+                        <p>Travel enthusiast with 10+ years in the industry</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Team Member">
+                        </div>
+                        <h3>Sarah Johnson</h3>
+                        <p class="member-role">Head of Product</p>
+                        <p>Passionate about creating amazing user experiences</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Team Member">
+                        </div>
+                        <h3>Mike Chen</h3>
+                        <p class="member-role">CTO</p>
+                        <p>Technology expert focused on innovation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Happy Travelers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Destinations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Customer Support</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <!-- Same as index.html -->
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/navigation.js"></script>
+</body>
+</html>

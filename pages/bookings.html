@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - travl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/bookings.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="../index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="bookings.html" class="active">My Bookings</a></li>
+                <li><a href="profile.html" class="protected-route">Profile</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="bookings-page">
+        <section class="page-header">
+            <div class="container">
+                <h1>My Bookings</h1>
+                <p>Manage your travel plans and bookings</p>
+            </div>
+        </section>
+
+        <section class="bookings-content">
+            <div class="container">
+                <div class="bookings-tabs">
+                    <button class="tab-btn active" data-tab="upcoming">Upcoming Trips</button>
+                    <button class="tab-btn" data-tab="past">Past Trips</button>
+                    <button class="tab-btn" data-tab="cancelled">Cancelled</button>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="upcoming">
+                        <div class="bookings-list" id="upcoming-bookings">
+                            <!-- Upcoming bookings will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="past">
+                        <div class="bookings-list" id="past-bookings">
+                            <!-- Past bookings will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="cancelled">
+                        <div class="bookings-list" id="cancelled-bookings">
+                            <!-- Cancelled bookings will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="no-bookings" id="no-bookings" style="display: none;">
+                    <div class="empty-state">
+                        <i class="fas fa-suitcase-rolling"></i>
+                        <h3>No bookings yet</h3>
+                        <p>Start planning your next adventure!</p>
+                        <a href="destinations.html" class="btn-primary">Explore Destinations</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <!-- Same as index.html -->
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/navigation.js"></script>
+    <script src="../js/pages/bookings.js"></script>
+</body>
+</html>
