@@ -1,0 +1,335 @@
+/* Booking Confirmation Page Styles */
+.confirmation-page {
+    padding-top: 80px;
+    background: var(--bg-light);
+    min-height: 100vh;
+}
+
+.confirmation-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* Confirmation Header */
+.confirmation-header {
+    text-align: center;
+    background: var(--white);
+    padding: 3rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.confirmation-header.success {
+    border-top: 4px solid #10b981;
+}
+
+.confirmation-header.error {
+    border-top: 4px solid #ef4444;
+}
+
+.confirmation-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.confirmation-header.success .confirmation-icon {
+    color: #10b981;
+}
+
+.confirmation-header.error .confirmation-icon {
+    color: #ef4444;
+}
+
+.confirmation-header h1 {
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.confirmation-header p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.booking-id {
+    background: #f0f9ff;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    display: inline-block;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Confirmation Details */
+.confirmation-details {
+    margin-bottom: 3rem;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.detail-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.detail-card h3 {
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item .label {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.detail-item .value {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.detail-item .value.price {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* Guest List */
+.guest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.guest-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: var(--border-radius-sm);
+}
+
+.guest-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.guest-info h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--text-dark);
+}
+
+.guest-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Support Info */
+.support-info p {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.support-contacts p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.support-contacts i {
+    color: var(--primary-color);
+    width: 16px;
+}
+
+/* Next Steps */
+.next-steps {
+    background: var(--white);
+    padding: 3rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.next-steps h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.step-item {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.step-item h4 {
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.step-item p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Confirmation Actions */
+.confirmation-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+/* Important Information */
+.important-info {
+    background: var(--white);
+    padding: 3rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.important-info h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.info-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.info-item i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.info-item h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-dark);
+}
+
+.info-item p {
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Print Styles */
+@media print {
+    .confirmation-page {
+        background: white;
+        padding-top: 0;
+    }
+    
+    #main-header,
+    #main-footer,
+    .confirmation-actions {
+        display: none;
+    }
+    
+    .confirmation-content {
+        max-width: none;
+        padding: 0;
+    }
+    
+    .confirmation-header,
+    .confirmation-details,
+    .next-steps,
+    .important-info {
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .confirmation-content {
+        padding: 1rem;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .confirmation-actions {
+        flex-direction: column;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .confirmation-header {
+        padding: 2rem 1rem;
+    }
+    
+    .confirmation-header h1 {
+        font-size: 2rem;
+    }
+}

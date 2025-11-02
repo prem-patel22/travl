@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics & Reports - travl Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/pages/admin.css">
+</head>
+<body class="admin-layout">
+    <header class="admin-header">...</header>
+    <aside class="admin-sidebar">...</aside>
+
+    <main class="admin-main">
+        <div class="admin-container">
+            <div class="page-header">
+                <h1>Analytics & Reports</h1>
+                <div class="header-actions">
+                    <select class="period-select" id="analytics-period">
+                        <option value="7">Last 7 days</option>
+                        <option value="30" selected>Last 30 days</option>
+                        <option value="90">Last 90 days</option>
+                        <option value="365">Last year</option>
+                    </select>
+                    <button class="btn-primary" id="generate-report">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Revenue</h3>
+                        <span class="metric-change positive">+12.5%</span>
+                    </div>
+                    <div class="metric-value">$24,568</div>
+                    <div class="metric-chart mini">
+                        <canvas id="revenue-mini-chart"></canvas>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Bookings</h3>
+                        <span class="metric-change positive">+8.3%</span>
+                    </div>
+                    <div class="metric-value">1,247</div>
+                    <div class="metric-chart mini">
+                        <canvas id="bookings-mini-chart"></canvas>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Conversion Rate</h3>
+                        <span class="metric-change positive">+2.1%</span>
+                    </div>
+                    <div class="metric-value">3.8%</div>
+                    <div class="metric-chart mini">
+                        <canvas id="conversion-mini-chart"></canvas>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Avg. Booking Value</h3>
+                        <span class="metric-change negative">-1.2%</span>
+                    </div>
+                    <div class="metric-value">$428</div>
+                    <div class="metric-chart mini">
+                        <canvas id="abv-mini-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Charts -->
+            <div class="charts-section">
+                <div class="chart-row">
+                    <div class="chart-card large">
+                        <div class="chart-header">
+                            <h3>Revenue Trend</h3>
+                            <div class="chart-legend">
+                                <span class="legend-item"><i class="fas fa-circle revenue"></i> Revenue</span>
+                                <span class="legend-item"><i class="fas fa-circle bookings"></i> Bookings</span>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenue-trend-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-row">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Booking Sources</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="sources-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>User Acquisition</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="acquisition-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Reports -->
+            <div class="reports-section">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Performance by Destination</h3>
+                        <button class="btn-text">View Full Report</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Destination</th>
+                                        <th>Bookings</th>
+                                        <th>Revenue</th>
+                                        <th>Avg. Value</th>
+                                        <th>Growth</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="destination-performance">
+                                    <!-- Data loaded via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/pages/admin-analytics.js"></script>
+</body>
+</html>

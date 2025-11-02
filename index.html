@@ -336,6 +336,139 @@
         </div>
     </footer>
 
+    <!-- Advanced Search Section -->
+<section class="advanced-search-section">
+    <div class="container">
+        <div class="advanced-search">
+            <div class="search-header">
+                <h2>Find Your Perfect Trip</h2>
+                <div class="search-actions">
+                    <button class="btn-outline" id="advanced-filters-btn">
+                        <i class="fas fa-sliders-h"></i>
+                        Advanced Filters
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-tabs">
+                <button class="search-tab active" data-type="all">All</button>
+                <button class="search-tab" data-type="destination">Destinations</button>
+                <button class="search-tab" data-type="hotel">Hotels</button>
+                <button class="search-tab" data-type="flight">Flights</button>
+                <button class="search-tab" data-type="package">Packages</button>
+            </div>
+
+            <div class="search-form-advanced">
+                <div class="search-field-advanced autocomplete-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Where do you want to go?">
+                    <div class="autocomplete-results" id="autocomplete-results"></div>
+                </div>
+
+                <div class="search-field-advanced">
+                    <i class="fas fa-calendar"></i>
+                    <input type="text" id="checkin-date" placeholder="Check-in Date" readonly>
+                </div>
+
+                <div class="search-field-advanced">
+                    <i class="fas fa-calendar"></i>
+                    <input type="text" id="checkout-date" placeholder="Check-out Date" readonly>
+                </div>
+
+                <div class="search-field-advanced">
+                    <i class="fas fa-user"></i>
+                    <select id="travelers">
+                        <option value="1">1 Traveler</option>
+                        <option value="2">2 Travelers</option>
+                        <option value="3">3 Travelers</option>
+                        <option value="4">4 Travelers</option>
+                        <option value="5">5+ Travelers</option>
+                    </select>
+                </div>
+
+                <button class="btn-primary btn-search-advanced">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+
+            <!-- Quick Filters -->
+            <div class="quick-filters">
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <input type="range" id="price-range" min="0" max="5000" value="5000" step="100">
+                    <span id="price-value">Up to $5000</span>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Amenities</h4>
+                    <div class="quick-filters">
+                        <button class="quick-filter" data-filter="amenity" data-value="wifi">WiFi</button>
+                        <button class="quick-filter" data-filter="amenity" data-value="pool">Pool</button>
+                        <button class="quick-filter" data-filter="amenity" data-value="spa">Spa</button>
+                        <button class="quick-filter" data-filter="amenity" data-value="breakfast">Breakfast</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Activities</h4>
+                    <div class="quick-filters">
+                        <button class="quick-filter" data-filter="activity" data-value="beach">Beach</button>
+                        <button class="quick-filter" data-filter="activity" data-value="hiking">Hiking</button>
+                        <button class="quick-filter" data-filter="activity" data-value="culture">Culture</button>
+                        <button class="quick-filter" data-filter="activity" data-value="adventure">Adventure</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="search-results-header">
+            <div class="results-info">
+                <h3>Search Results</h3>
+                <span class="results-count" id="results-count">0 results</span>
+            </div>
+            <div class="results-sort">
+                <select class="sort-select" id="sort-results">
+                    <option value="relevance">Sort by: Relevance</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="view-btn" data-view="map">
+                        <i class="fas fa-map"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map and Results Layout -->
+        <div class="search-with-map">
+            <div class="search-results-container">
+                <div class="search-results" id="search-results">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <div id="search-map"></div>
+                </div>
+                <div class="map-item-details" id="map-item-details">
+                    <!-- Item details will be shown here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/components/navigation.js"></script>

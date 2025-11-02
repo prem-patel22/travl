@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - travl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/booking-confirmation.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="../index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="bookings.html" class="protected-route">My Bookings</a></li>
+                <li><a href="profile.html" class="protected-route">Profile</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="confirmation-page">
+        <div class="container">
+            <div class="confirmation-content">
+                <!-- Success Header -->
+                <div class="confirmation-header success">
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h1>Booking Confirmed!</h1>
+                    <p>Thank you for choosing travl. Your adventure is just beginning!</p>
+                    <div class="booking-id">Booking ID: <span id="confirmation-booking-id">TRV12345678</span></div>
+                </div>
+
+                <!-- Booking Details -->
+                <div class="confirmation-details">
+                    <div class="details-grid">
+                        <!-- Trip Summary -->
+                        <div class="detail-card">
+                            <h3>Trip Summary</h3>
+                            <div class="detail-item">
+                                <span class="label">Destination</span>
+                                <span class="value" id="confirmation-destination">Bali, Indonesia</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Travel Dates</span>
+                                <span class="value" id="confirmation-dates">Jan 15 - Jan 22, 2024</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Travelers</span>
+                                <span class="value" id="confirmation-travelers">2 Adults</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Total Paid</span>
+                                <span class="value price" id="confirmation-total">$1,899.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Guest Information -->
+                        <div class="detail-card">
+                            <h3>Guest Information</h3>
+                            <div class="guest-list" id="confirmation-guests">
+                                <!-- Guests will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Payment Details -->
+                        <div class="detail-card">
+                            <h3>Payment Details</h3>
+                            <div class="detail-item">
+                                <span class="label">Payment Method</span>
+                                <span class="value" id="confirmation-payment-method">Credit Card</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Transaction ID</span>
+                                <span class="value" id="confirmation-transaction">txn_123456789</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Payment Date</span>
+                                <span class="value" id="confirmation-payment-date">Jan 10, 2024</span>
+                            </div>
+                        </div>
+
+                        <!-- Support Information -->
+                        <div class="detail-card">
+                            <h3>Support</h3>
+                            <div class="support-info">
+                                <p>Need help with your booking?</p>
+                                <div class="support-contacts">
+                                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                                    <p><i class="fas fa-envelope"></i> support@travl.com</p>
+                                    <p><i class="fas fa-comments"></i> Live Chat Available</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="next-steps">
+                    <h2>What's Next?</h2>
+                    <div class="steps-grid">
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h4>Confirmation Email</h4>
+                            <p>You'll receive a detailed confirmation email within 15 minutes.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fas fa-passport"></i>
+                            </div>
+                            <h4>Travel Documents</h4>
+                            <p>Check your email for important travel documents and vouchers.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h4>Reminders</h4>
+                            <p>We'll send you reminders before your trip with helpful information.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h4>24/7 Support</h4>
+                            <p>Our travel experts are available anytime to assist you.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="confirmation-actions">
+                    <button class="btn-primary" onclick="window.print()">
+                        <i class="fas fa-print"></i>
+                        Print Confirmation
+                    </button>
+                    <a href="bookings.html" class="btn-outline">
+                        <i class="fas fa-suitcase"></i>
+                        View My Bookings
+                    </a>
+                    <a href="../index.html" class="btn-outline">
+                        <i class="fas fa-search"></i>
+                        Plan Another Trip
+                    </a>
+                </div>
+
+                <!-- Important Information -->
+                <div class="important-info">
+                    <h3>Important Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <i class="fas fa-info-circle"></i>
+                            <div>
+                                <h4>Cancellation Policy</h4>
+                                <p>Free cancellation up to 7 days before check-in. View full policy in your confirmation email.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-passport"></i>
+                            <div>
+                                <h4>Travel Requirements</h4>
+                                <p>Check passport validity and visa requirements for your destination.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-suitcase-rolling"></i>
+                            <div>
+                                <h4>Packing Tips</h4>
+                                <p>View destination-specific packing recommendations in your travel documents.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/navigation.js"></script>
+    <script src="../js/pages/booking-confirmation.js"></script>
+</body>
+</html>

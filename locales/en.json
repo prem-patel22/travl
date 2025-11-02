@@ -1,0 +1,79 @@
+{
+  "app": {
+    "name": "travl",
+    "tagline": "Your Travel Companion",
+    "description": "Plan, book, and manage your travels all in one place"
+  },
+  "navigation": {
+    "home": "Home",
+    "destinations": "Destinations",
+    "bookings": "My Bookings",
+    "profile": "Profile",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "welcome": "Welcome, {name}",
+    "login_title": "Login to travl",
+    "signup_title": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "full_name": "Full Name",
+    "have_account": "Already have an account?",
+    "no_account": "Don't have an account?"
+  },
+  "search": {
+    "title": "Find Your Perfect Trip",
+    "placeholder": "Where do you want to go?",
+    "checkin": "Check-in",
+    "checkout": "Check-out",
+    "travelers": "Travelers",
+    "search": "Search",
+    "filters": "Advanced Filters",
+    "all": "All",
+    "destinations": "Destinations",
+    "hotels": "Hotels",
+    "flights": "Flights",
+    "packages": "Packages"
+  },
+  "booking": {
+    "book_now": "Book Now",
+    "from_price": "From {price}",
+    "view_details": "View Details",
+    "add_wishlist": "Add to Wishlist",
+    "steps": {
+      "details": "Details",
+      "guests": "Guests",
+      "payment": "Payment",
+      "confirmation": "Confirmation"
+    },
+    "total": "Total",
+    "taxes": "Taxes & Fees",
+    "service_fee": "Service Fee"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "share": "Share",
+    "print": "Print",
+    "download": "Download",
+    "currency": "USD",
+    "language": "Language"
+  },
+  "footer": {
+    "description": "Your trusted travel companion for unforgettable journeys",
+    "quick_links": "Quick Links",
+    "support": "Support",
+    "contact_info": "Contact Info"
+  }
+}

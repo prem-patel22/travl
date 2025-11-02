@@ -1,0 +1,104 @@
+/* Map Styles */
+.map-wrapper {
+    position: relative;
+    height: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+#search-map {
+    height: 100%;
+    width: 100%;
+}
+
+.map-controls {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.map-btn {
+    background: var(--white);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    padding: 0.75rem;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-btn:hover {
+    background: #f8fafc;
+}
+
+.map-marker {
+    background: var(--primary-color);
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    box-shadow: var(--shadow);
+}
+
+.map-marker.highlight {
+    background: var(--accent-color);
+    transform: scale(1.2);
+}
+
+.map-popup {
+    max-width: 200px;
+}
+
+.map-popup h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-dark);
+}
+
+.map-popup p {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.map-popup .price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* Cluster Markers */
+.marker-cluster {
+    background: var(--primary-color);
+    border-radius: 50%;
+    color: var(--white);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+}
+
+.marker-cluster-small {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+}
+
+.marker-cluster-medium {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+.marker-cluster-large {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+}

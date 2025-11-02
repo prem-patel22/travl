@@ -1,0 +1,79 @@
+{
+  "app": {
+    "name": "travl",
+    "tagline": "Votre Compagnon de Voyage",
+    "description": "Planifiez, réservez et gérez vos voyages en un seul endroit"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "destinations": "Destinations",
+    "bookings": "Mes Réservations",
+    "profile": "Profil",
+    "about": "À Propos",
+    "contact": "Contact"
+  },
+  "auth": {
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "logout": "Déconnexion",
+    "welcome": "Bienvenue, {name}",
+    "login_title": "Se connecter à travl",
+    "signup_title": "Créer un Compte",
+    "email": "E-mail",
+    "password": "Mot de Passe",
+    "confirm_password": "Confirmer le Mot de Passe",
+    "full_name": "Nom Complet",
+    "have_account": "Vous avez déjà un compte ?",
+    "no_account": "Vous n'avez pas de compte ?"
+  },
+  "search": {
+    "title": "Trouvez Votre Voyage Parfait",
+    "placeholder": "Où voulez-vous aller ?",
+    "checkin": "Arrivée",
+    "checkout": "Départ",
+    "travelers": "Voyageurs",
+    "search": "Rechercher",
+    "filters": "Filtres Avancés",
+    "all": "Tout",
+    "destinations": "Destinations",
+    "hotels": "Hôtels",
+    "flights": "Vols",
+    "packages": "Forfaits"
+  },
+  "booking": {
+    "book_now": "Réserver Maintenant",
+    "from_price": "À partir de {price}",
+    "view_details": "Voir les Détails",
+    "add_wishlist": "Ajouter aux Favoris",
+    "steps": {
+      "details": "Détails",
+      "guests": "Invités",
+      "payment": "Paiement",
+      "confirmation": "Confirmation"
+    },
+    "total": "Total",
+    "taxes": "Taxes et Frais",
+    "service_fee": "Frais de Service"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "share": "Partager",
+    "print": "Imprimer",
+    "download": "Télécharger",
+    "currency": "EUR",
+    "language": "Langue"
+  },
+  "footer": {
+    "description": "Votre compagnon de voyage de confiance pour des voyages inoubliables",
+    "quick_links": "Liens Rapides",
+    "support": "Support",
+    "contact_info": "Informations de Contact"
+  }
+}

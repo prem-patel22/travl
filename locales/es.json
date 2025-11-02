@@ -1,0 +1,79 @@
+{
+  "app": {
+    "name": "travl",
+    "tagline": "Tu Compañero de Viaje",
+    "description": "Planifica, reserva y gestiona tus viajes en un solo lugar"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "destinations": "Destinos",
+    "bookings": "Mis Reservas",
+    "profile": "Perfil",
+    "about": "Acerca de",
+    "contact": "Contacto"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "signup": "Registrarse",
+    "logout": "Cerrar Sesión",
+    "welcome": "Bienvenido, {name}",
+    "login_title": "Iniciar Sesión en travl",
+    "signup_title": "Crear Cuenta",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "full_name": "Nombre Completo",
+    "have_account": "¿Ya tienes una cuenta?",
+    "no_account": "¿No tienes una cuenta?"
+  },
+  "search": {
+    "title": "Encuentra Tu Viaje Perfecto",
+    "placeholder": "¿A dónde quieres ir?",
+    "checkin": "Entrada",
+    "checkout": "Salida",
+    "travelers": "Viajeros",
+    "search": "Buscar",
+    "filters": "Filtros Avanzados",
+    "all": "Todo",
+    "destinations": "Destinos",
+    "hotels": "Hoteles",
+    "flights": "Vuelos",
+    "packages": "Paquetes"
+  },
+  "booking": {
+    "book_now": "Reservar Ahora",
+    "from_price": "Desde {price}",
+    "view_details": "Ver Detalles",
+    "add_wishlist": "Añadir a Favoritos",
+    "steps": {
+      "details": "Detalles",
+      "guests": "Huéspedes",
+      "payment": "Pago",
+      "confirmation": "Confirmación"
+    },
+    "total": "Total",
+    "taxes": "Impuestos y Tarifas",
+    "service_fee": "Tarifa de Servicio"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "share": "Compartir",
+    "print": "Imprimir",
+    "download": "Descargar",
+    "currency": "USD",
+    "language": "Idioma"
+  },
+  "footer": {
+    "description": "Tu compañero de viaje de confianza para viajes inolvidables",
+    "quick_links": "Enlaces Rápidos",
+    "support": "Soporte",
+    "contact_info": "Información de Contacto"
+  }
+}

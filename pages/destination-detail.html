@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details - travl</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/destination-detail.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="../index.html"><i class="fas fa-plane"></i> travl</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="bookings.html" class="protected-route">My Bookings</a></li>
+                <li><a href="profile.html" class="protected-route">Profile</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-greeting" id="user-greeting" style="display: none;">
+                    <span>Welcome, </span>
+                    <span id="username-display"></span>
+                    <button class="btn-logout" id="btn-logout">Logout</button>
+                </div>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" id="btn-login">Login</button>
+                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="destination-detail-page">
+        <!-- Hero Section -->
+        <section class="destination-hero">
+            <div class="hero-background" id="hero-background"></div>
+            <div class="hero-overlay"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="destination-header">
+                        <nav class="breadcrumb">
+                            <a href="../index.html">Home</a>
+                            <span>/</span>
+                            <a href="destinations.html">Destinations</a>
+                            <span>/</span>
+                            <span id="destination-name">Destination</span>
+                        </nav>
+                        <h1 id="detail-title">Destination Name</h1>
+                        <div class="destination-meta">
+                            <span class="rating" id="detail-rating">
+                                <i class="fas fa-star"></i> 4.8
+                            </span>
+                            <span class="location" id="detail-location">
+                                <i class="fas fa-map-marker-alt"></i> Location
+                            </span>
+                            <span class="price" id="detail-price">
+                                From $999
+                            </span>
+                        </div>
+                        <div class="hero-actions">
+                            <button class="btn-primary btn-large" id="book-now-btn">
+                                <i class="fas fa-calendar-check"></i>
+                                Book Now
+                            </button>
+                            <button class="btn-outline wishlist-btn" id="detail-wishlist-btn">
+                                <i class="far fa-heart"></i>
+                                Add to Wishlist
+                            </button>
+                            <button class="btn-outline share-btn" id="share-btn">
+                                <i class="fas fa-share"></i>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destination Content -->
+        <section class="destination-content">
+            <div class="container">
+                <div class="content-layout">
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <!-- Image Gallery -->
+                        <section class="image-gallery">
+                            <div class="gallery-main">
+                                <img id="main-image" src="" alt="Main destination image">
+                            </div>
+                            <div class="gallery-thumbs" id="gallery-thumbs">
+                                <!-- Thumbnails will be loaded here -->
+                            </div>
+                        </section>
+
+                        <!-- Overview -->
+                        <section class="overview-section">
+                            <h2>Overview</h2>
+                            <p id="destination-description">Loading description...</p>
+                            
+                            <div class="highlights-grid" id="highlights-grid">
+                                <!-- Highlights will be loaded here -->
+                            </div>
+                        </section>
+
+                        <!-- What's Included -->
+                        <section class="included-section">
+                            <h2>What's Included</h2>
+                            <div class="included-grid" id="included-grid">
+                                <!-- Included items will be loaded here -->
+                            </div>
+                        </section>
+
+                        <!-- Itinerary -->
+                        <section class="itinerary-section">
+                            <h2>Sample Itinerary</h2>
+                            <div class="itinerary-timeline" id="itinerary-timeline">
+                                <!-- Itinerary will be loaded here -->
+                            </div>
+                        </section>
+
+                        <!-- Reviews -->
+                        <section class="reviews-section">
+                            <div class="section-header">
+                                <h2>Traveler Reviews</h2>
+                                <button class="btn-outline" id="write-review-btn">
+                                    <i class="fas fa-pen"></i>
+                                    Write a Review
+                                </button>
+                            </div>
+                            <div id="reviews-container">
+                                <!-- Reviews will be loaded here -->
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Booking Sidebar -->
+                    <aside class="booking-sidebar">
+                        <div class="booking-card">
+                            <div class="booking-header">
+                                <h3>Book This Trip</h3>
+                                <div class="price" id="sidebar-price">From $999</div>
+                            </div>
+                            
+                            <form class="booking-widget" id="booking-widget">
+                                <div class="form-group">
+                                    <label for="sidebar-checkin">Check-in Date</label>
+                                    <input type="date" id="sidebar-checkin" name="checkin" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="sidebar-checkout">Check-out Date</label>
+                                    <input type="date" id="sidebar-checkout" name="checkout" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="sidebar-travelers">Travelers</label>
+                                    <select id="sidebar-travelers" name="travelers">
+                                        <option value="1">1 Traveler</option>
+                                        <option value="2">2 Travelers</option>
+                                        <option value="3">3 Travelers</option>
+                                        <option value="4">4 Travelers</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="price-breakdown">
+                                    <div class="price-item">
+                                        <span>Base price</span>
+                                        <span id="base-price">$0</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span>Taxes & fees</span>
+                                        <span id="taxes-price">$0</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span>Service fee</span>
+                                        <span>$25</span>
+                                    </div>
+                                    <div class="price-total">
+                                        <span>Total</span>
+                                        <span id="total-price">$0</span>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn-primary btn-full">
+                                    <i class="fas fa-lock"></i>
+                                    Book Now
+                                </button>
+                                
+                                <div class="booking-guarantee">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Best price guarantee · Free cancellation</span>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Map -->
+                        <div class="location-card">
+                            <h4>Location</h4>
+                            <div class="mini-map" id="mini-map"></div>
+                            <p id="location-address">Loading address...</p>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="contact-card">
+                            <h4>Need Help?</h4>
+                            <div class="contact-info">
+                                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                                <p><i class="fas fa-envelope"></i> support@travl.com</p>
+                                <p><i class="fas fa-clock"></i> 24/7 Support</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- Similar Destinations -->
+        <section class="similar-destinations">
+            <div class="container">
+                <h2>You Might Also Like</h2>
+                <div class="destinations-grid" id="similar-destinations">
+                    <!-- Similar destinations will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Review Modal -->
+    <div id="review-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Write a Review</h2>
+            <form id="review-form">
+                <input type="hidden" id="review-item-id" name="itemId">
+                <input type="hidden" id="review-item-type" name="itemType" value="destination">
+                
+                <div class="form-group">
+                    <label>Your Rating</label>
+                    <div class="star-rating-widget">
+                        <div class="stars">
+                            <span class="star" data-rating="1"><i class="far fa-star"></i></span>
+                            <span class="star" data-rating="2"><i class="far fa-star"></i></span>
+                            <span class="star" data-rating="3"><i class="far fa-star"></i></span>
+                            <span class="star" data-rating="4"><i class="far fa-star"></i></span>
+                            <span class="star" data-rating="5"><i class="far fa-star"></i></span>
+                        </div>
+                        <input type="hidden" name="rating" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="review-title">Review Title</label>
+                    <input type="text" id="review-title" name="title" placeholder="Summarize your experience" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="review-comment">Your Review</label>
+                    <textarea id="review-comment" name="comment" rows="5" placeholder="Share details of your experience..." required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary btn-full">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="main-footer">
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/navigation.js"></script>
+    <script src="../js/wishlist.js"></script>
+    <script src="../js/reviews.js"></script>
+    <script src="../js/pages/destination-detail.js"></script>
+</body>
+</html>

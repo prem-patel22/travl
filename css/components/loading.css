@@ -1,0 +1,198 @@
+/* Loading States and Skeleton Screens */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: var(--border-radius-sm);
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-title {
+    height: 2rem;
+    margin-bottom: 1rem;
+}
+
+.skeleton-image {
+    height: 200px;
+    margin-bottom: 1rem;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Lazy Loading */
+.lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+/* Progressive Image Loading */
+.progressive-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.progressive-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.progressive-image .placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressive-image .placeholder i {
+    color: #cbd5e1;
+    font-size: 2rem;
+}
+
+/* Loading Spinners */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-spinner-large {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Content Placeholders */
+.content-placeholder {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.placeholder-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.placeholder-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #f0f0f0;
+}
+
+.placeholder-content {
+    flex: 1;
+}
+
+.placeholder-line {
+    height: 1rem;
+    background: #f0f0f0;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
+
+.placeholder-line.short {
+    width: 60%;
+}
+
+.placeholder-line.medium {
+    width: 80%;
+}
+
+/* Button Loading States */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Search Loading */
+.search-loading {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+.search-loading.active {
+    display: block;
+}
+
+.search-loading .loading-spinner {
+    margin-bottom: 1rem;
+}
+
+/* Infinite Scroll Loading */
+.infinite-scroll-loading {
+    text-align: center;
+    padding: 2rem;
+    display: none;
+}
+
+.infinite-scroll-loading.active {
+    display: block;
+}
+
+/* Optimized Animations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Critical CSS (inline in production) */
+.critical-show {
+    opacity: 1 !important;
+}
+
+/* Resource Hints */
+.resource-hint {
+    display: none;
+}
