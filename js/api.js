@@ -1,7 +1,9 @@
-// API Integration System
+// API Integration System - Enhanced with Backend Integration
 class TravelAPI {
     constructor() {
-        this.baseURL = 'https://api.travl.com/v1';
+        // Use local backend in development, production API in production
+        this.baseURL = this.getBaseURL();
+        this.backendURL = 'http://localhost:3001/api'; // Your new backend
         this.cache = new Map();
         this.requestQueue = new Map();
         this.init();
@@ -10,6 +12,15 @@ class TravelAPI {
     init() {
         this.setupInterceptors();
         this.setupErrorHandling();
+        this.testBackendConnection();
+    }
+
+    getBaseURL() {
+        // Use local backend for development, production API for live
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            return 'http://localhost:3001/api';
+        }
+        return 'https://api.travl.com/v1';
     }
 
     // Generic API call method
@@ -39,6 +50,46 @@ class TravelAPI {
             return response;
         } catch (error) {
             this.requestQueue.delete(cacheKey);
+            throw error;
+        }
+    }
+
+    // Backend-specific API call (for your new Node.js backend)
+    async backendCall(endpoint, options = {}) {
+        const url = `${this.backendURL}${endpoint}`;
+        
+        const config = {
+            method: options.method || 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            },
+            ...options
+        };
+
+        if (options.body) {
+            config.body = JSON.stringify(options.body);
+        }
+
+        const startTime = performance.now();
+        
+        try {
+            const response = await fetch(url, config);
+            const duration = performance.now() - startTime;
+            
+            this.logRequest(url, config.method, duration, response.status);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            return data;
+            
+        } catch (error) {
+            const duration = performance.now() - startTime;
+            this.logRequest(url, config.method, duration, 'ERROR');
             throw error;
         }
     }
@@ -85,7 +136,78 @@ class TravelAPI {
         }
     }
 
-    // Specific API methods
+    // ==================== PAYMENT API METHODS ====================
+    
+    async createPaymentIntent(amount, currency = 'usd', bookingId, customerEmail) {
+        return this.backendCall('/payments/create-payment-intent', {
+            method: 'POST',
+            body: {
+                amount: amount,
+                currency: currency,
+                bookingId: bookingId,
+                customerEmail: customerEmail
+            },
+            cache: false
+        });
+    }
+
+    async createPayPalOrder(amount, currency = 'USD', bookingId) {
+        return this.backendCall('/payments/create-paypal-order', {
+            method: 'POST',
+            body: {
+                amount: amount,
+                currency: currency,
+                bookingId: bookingId
+            },
+            cache: false
+        });
+    }
+
+    async capturePayPalOrder(orderID) {
+        return this.backendCall('/payments/capture-paypal-order', {
+            method: 'POST',
+            body: { orderID },
+            cache: false
+        });
+    }
+
+    async refundPayment(paymentIntentId, amount) {
+        return this.backendCall('/payments/refund', {
+            method: 'POST',
+            body: {
+                paymentIntentId: paymentIntentId,
+                amount: amount
+            },
+            cache: false
+        });
+    }
+
+    // ==================== BACKEND BOOKING API METHODS ====================
+    
+    async createBackendBooking(bookingData) {
+        return this.backendCall('/bookings/create', {
+            method: 'POST',
+            body: bookingData,
+            cache: false
+        });
+    }
+
+    async getBackendBooking(bookingId) {
+        return this.backendCall(`/bookings/${bookingId}`, {
+            cache: true,
+            cacheTTL: 2 * 60 * 1000 // 2 minutes
+        });
+    }
+
+    async getUserBackendBookings(userEmail) {
+        return this.backendCall(`/bookings/user/${encodeURIComponent(userEmail)}`, {
+            cache: true,
+            cacheTTL: 2 * 60 * 1000 // 2 minutes
+        });
+    }
+
+    // ==================== EXISTING API METHODS (KEEPING FOR COMPATIBILITY) ====================
+    
     async searchDestinations(params) {
         const queryString = new URLSearchParams(params).toString();
         return this.call(`/destinations?${queryString}`, {
@@ -118,17 +240,29 @@ class TravelAPI {
     }
 
     async createBooking(bookingData) {
-        return this.call('/bookings', {
-            method: 'POST',
-            body: bookingData,
-            cache: false
-        });
+        // Use backend for real bookings, fallback to mock
+        try {
+            return await this.createBackendBooking(bookingData);
+        } catch (error) {
+            console.warn('Backend booking failed, using mock:', error);
+            return this.call('/bookings', {
+                method: 'POST',
+                body: bookingData,
+                cache: false
+            });
+        }
     }
 
     async getBooking(bookingId) {
-        return this.call(`/bookings/${bookingId}`, {
-            cache: true
-        });
+        // Try backend first, then fallback
+        try {
+            return await this.getBackendBooking(bookingId);
+        } catch (error) {
+            console.warn('Backend booking fetch failed, using mock:', error);
+            return this.call(`/bookings/${bookingId}`, {
+                cache: true
+            });
+        }
     }
 
     async cancelBooking(bookingId) {
@@ -139,6 +273,16 @@ class TravelAPI {
     }
 
     async getUserBookings(userId) {
+        // Try backend with user email, fallback to mock
+        const user = window.authSystem?.getCurrentUser();
+        if (user?.email) {
+            try {
+                return await this.getUserBackendBookings(user.email);
+            } catch (error) {
+                console.warn('Backend user bookings failed, using mock:', error);
+            }
+        }
+        
         return this.call(`/users/${userId}/bookings`, {
             cache: true,
             cacheTTL: 2 * 60 * 1000 // 2 minutes
@@ -176,6 +320,28 @@ class TravelAPI {
         });
     }
 
+    // ==================== BACKEND HEALTH CHECK ====================
+    
+    async testBackendConnection() {
+        try {
+            const response = await fetch('http://localhost:3001/health');
+            const data = await response.json();
+            console.log('✅ Backend connection:', data);
+            return true;
+        } catch (error) {
+            console.warn('❌ Backend not available:', error.message);
+            return false;
+        }
+    }
+
+    async getBackendHealth() {
+        return this.backendCall('/health', {
+            cache: false
+        });
+    }
+
+    // ==================== EXISTING UTILITY METHODS (UNCHANGED) ====================
+    
     // Cache management
     generateCacheKey(url, options) {
         return btoa(`${url}-${JSON.stringify(options)}`);
@@ -282,6 +448,12 @@ class TravelAPI {
     }
 
     showErrorNotification(message) {
+        // Check if we're in a test environment
+        if (window.location.pathname.includes('test-payment.html')) {
+            console.log('Error notification:', message);
+            return;
+        }
+
         const notification = document.createElement('div');
         notification.className = 'error-notification';
         notification.innerHTML = `
@@ -332,7 +504,6 @@ class TravelAPI {
     }
 
     async retryRequest(originalError, retries = 3) {
-        // Implementation for retry logic
         for (let i = 0; i < retries; i++) {
             try {
                 await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
@@ -347,22 +518,19 @@ class TravelAPI {
     // Rate limiting
     setupRateLimiting() {
         this.requests = [];
-        this.maxRequests = 100; // requests per minute
+        this.maxRequests = 100;
     }
 
     checkRateLimit() {
         const now = Date.now();
         const oneMinuteAgo = now - 60000;
         
-        // Remove old requests
         this.requests = this.requests.filter(time => time > oneMinuteAgo);
         
-        // Check if limit exceeded
         if (this.requests.length >= this.maxRequests) {
             throw new Error('Rate limit exceeded');
         }
         
-        // Add current request
         this.requests.push(now);
     }
 
@@ -371,14 +539,16 @@ class TravelAPI {
         return Promise.all(requests.map(req => this.call(req.endpoint, req.options)));
     }
 
-    // Real-time updates (WebSocket)
+    // Real-time updates (WebSocket) - Enhanced for backend
     setupRealTimeUpdates() {
         if (this.socket) return;
         
-        this.socket = new WebSocket('wss://api.travl.com/realtime');
+        // Use backend WebSocket if available
+        const wsURL = this.baseURL.replace('http', 'ws') + '/realtime';
+        this.socket = new WebSocket(wsURL);
         
         this.socket.onopen = () => {
-            console.log('WebSocket connected');
+            console.log('WebSocket connected to backend');
         };
         
         this.socket.onmessage = (event) => {
@@ -388,7 +558,6 @@ class TravelAPI {
         
         this.socket.onclose = () => {
             console.log('WebSocket disconnected');
-            // Attempt reconnect after delay
             setTimeout(() => this.setupRealTimeUpdates(), 5000);
         };
     }
@@ -404,23 +573,28 @@ class TravelAPI {
             case 'BOOKING_UPDATE':
                 this.handleBookingUpdate(data);
                 break;
+            case 'PAYMENT_UPDATE':
+                this.handlePaymentUpdate(data);
+                break;
         }
     }
 
+    handlePaymentUpdate(data) {
+        const event = new CustomEvent('paymentUpdate', { detail: data });
+        window.dispatchEvent(event);
+    }
+
     handlePriceUpdate(data) {
-        // Update prices in UI
         const event = new CustomEvent('priceUpdate', { detail: data });
         window.dispatchEvent(event);
     }
 
     handleAvailabilityUpdate(data) {
-        // Update availability in UI
         const event = new CustomEvent('availabilityUpdate', { detail: data });
         window.dispatchEvent(event);
     }
 
     handleBookingUpdate(data) {
-        // Update booking status in UI
         const event = new CustomEvent('bookingUpdate', { detail: data });
         window.dispatchEvent(event);
     }

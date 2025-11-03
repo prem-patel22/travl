@@ -1,114 +1,143 @@
-// Payment System Integration
+// Payment System Integration - Enhanced with Real Stripe/PayPal
 class PaymentSystem {
     constructor() {
         this.stripe = null;
+        this.stripeElements = null;
+        this.cardElement = null;
         this.paypal = null;
+        this.isInitialized = false;
         this.init();
     }
 
     async init() {
-        await this.loadStripe();
-        await this.loadPayPal();
-    }
-
-    async loadStripe() {
-        // In a real implementation, you would load Stripe.js
-        // For demo purposes, we'll simulate Stripe functionality
-        console.log('Stripe loaded successfully');
-        
-        this.stripe = {
-            createPaymentMethod: async (cardElement) => {
-                // Simulate Stripe payment method creation
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve({
-                            error: null,
-                            paymentMethod: {
-                                id: 'pm_' + Math.random().toString(36).substr(2, 10)
-                            }
-                        });
-                    }, 1000);
-                });
-            },
-            confirmCardPayment: async (clientSecret) => {
-                // Simulate payment confirmation
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve({
-                            error: null,
-                            paymentIntent: {
-                                id: 'pi_' + Math.random().toString(36).substr(2, 10),
-                                status: 'succeeded'
-                            }
-                        });
-                    }, 2000);
-                });
-            }
-        };
-    }
-
-    async loadPayPal() {
-        // In a real implementation, you would load PayPal SDK
-        console.log('PayPal loaded successfully');
-        
-        this.paypal = {
-            render: (element, options) => {
-                // Simulate PayPal button rendering
-                const button = document.createElement('button');
-                button.className = 'btn-primary btn-full';
-                button.innerHTML = '<i class="fab fa-paypal"></i> Pay with PayPal';
-                button.onclick = () => this.handlePayPalPayment();
-                element.appendChild(button);
-            }
-        };
-    }
-
-    async processCreditCardPayment(cardDetails) {
         try {
-            // Simulate payment processing
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Simulate random success (90% success rate)
-            const success = Math.random() > 0.1;
-            
-            if (success) {
-                return {
-                    success: true,
-                    transactionId: 'txn_' + Date.now().toString(36),
-                    message: 'Payment processed successfully'
-                };
-            } else {
-                throw new Error('Payment declined by bank');
-            }
+            await this.loadStripe();
+            await this.loadPayPal();
+            this.isInitialized = true;
+            console.log('Payment system initialized successfully');
         } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
+            console.error('Failed to initialize payment system:', error);
         }
     }
 
-    async handlePayPalPayment() {
+    async loadStripe() {
+        // Load Stripe.js from CDN
+        if (!window.Stripe) {
+            await this.loadScript('https://js.stripe.com/v3/');
+        }
+        
+        // Initialize Stripe with your publishable key
+        // Replace 'pk_test_your_key' with your actual Stripe publishable key
+        this.stripe = Stripe('pk_test_your_publishable_key_here');
+        
+        // Create Stripe Elements
+        this.stripeElements = this.stripe.elements();
+        this.cardElement = this.stripeElements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                        color: '#aab7c4',
+                    },
+                },
+            },
+        });
+        
+        console.log('Stripe loaded successfully');
+    }
+
+    async loadPayPal() {
+        // Load PayPal SDK
+        if (!window.paypal) {
+            await this.loadScript('https://www.paypal.com/sdk/js?client-id=your_client_id_here&currency=USD');
+        }
+        
+        this.paypal = window.paypal;
+        console.log('PayPal loaded successfully');
+    }
+
+    loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    mountCardElement(containerId) {
+        if (!this.cardElement) {
+            console.error('Stripe not initialized');
+            return;
+        }
+        
+        const container = document.getElementById(containerId);
+        if (container) {
+            this.cardElement.mount(container);
+        }
+    }
+
+    async processCreditCardPayment(bookingDetails) {
         try {
-            // Show loading state
             this.showPaymentLoading(true);
             
-            // Simulate PayPal payment processing
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            
-            // Simulate random success (85% success rate)
-            const success = Math.random() > 0.15;
-            
-            if (success) {
+            // 1. Create payment method using Stripe Elements
+            const { paymentMethod, error } = await this.stripe.createPaymentMethod({
+                type: 'card',
+                card: this.cardElement,
+                billing_details: {
+                    name: bookingDetails.customerName,
+                    email: bookingDetails.customerEmail,
+                },
+            });
+
+            if (error) {
+                throw new Error(error.message);
+            }
+
+            // 2. Call your backend to create payment intent
+            const response = await fetch('/api/create-payment-intent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    paymentMethodId: paymentMethod.id,
+                    amount: bookingDetails.totalAmount,
+                    currency: 'usd',
+                    bookingId: bookingDetails.bookingId,
+                    customerEmail: bookingDetails.customerEmail,
+                }),
+            });
+
+            const { clientSecret, error: backendError } = await response.json();
+
+            if (backendError) {
+                throw new Error(backendError);
+            }
+
+            // 3. Confirm payment with Stripe
+            const { paymentIntent, error: confirmError } = await this.stripe.confirmCardPayment(clientSecret);
+
+            if (confirmError) {
+                throw new Error(confirmError.message);
+            }
+
+            if (paymentIntent.status === 'succeeded') {
                 return {
                     success: true,
-                    transactionId: 'PAYPAL_' + Date.now().toString(36),
-                    message: 'PayPal payment completed successfully'
+                    transactionId: paymentIntent.id,
+                    paymentMethod: 'credit_card',
+                    message: 'Payment processed successfully'
                 };
             } else {
-                throw new Error('PayPal payment failed');
+                throw new Error('Payment failed');
             }
+
         } catch (error) {
+            console.error('Credit card payment error:', error);
             return {
                 success: false,
                 error: error.message
@@ -118,73 +147,272 @@ class PaymentSystem {
         }
     }
 
+    async handlePayPalPayment(bookingDetails) {
+        try {
+            // This would be implemented with actual PayPal button
+            // For now, we'll simulate the flow and call backend
+            
+            const response = await fetch('/api/create-paypal-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    amount: bookingDetails.totalAmount,
+                    currency: 'USD',
+                    bookingId: bookingDetails.bookingId,
+                    returnUrl: `${window.location.origin}/pages/payment-success.html`,
+                    cancelUrl: `${window.location.origin}/pages/payment-failed.html`,
+                }),
+            });
+
+            const { orderID, error } = await response.json();
+
+            if (error) {
+                throw new Error(error);
+            }
+
+            // In real implementation, this would redirect to PayPal
+            // For demo, we'll simulate approval
+            return await this.approvePayPalOrder(orderID);
+
+        } catch (error) {
+            console.error('PayPal payment error:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    async approvePayPalOrder(orderID) {
+        // Simulate PayPal approval process
+        // In real implementation, user would be redirected to PayPal
+        try {
+            const response = await fetch('/api/capture-paypal-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ orderID }),
+            });
+
+            const { transactionId, error } = await response.json();
+
+            if (error) {
+                throw new Error(error);
+            }
+
+            return {
+                success: true,
+                transactionId: transactionId,
+                paymentMethod: 'paypal',
+                message: 'PayPal payment completed successfully'
+            };
+
+        } catch (error) {
+            throw new Error(`PayPal capture failed: ${error.message}`);
+        }
+    }
+
+    renderPayPalButton(containerId, bookingDetails) {
+        if (!this.paypal) {
+            console.error('PayPal not loaded');
+            return;
+        }
+
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // Clear container
+        container.innerHTML = '';
+
+        this.paypal.Buttons({
+            createOrder: async (data, actions) => {
+                const response = await fetch('/api/create-paypal-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amount: bookingDetails.totalAmount,
+                        currency: 'USD',
+                        bookingId: bookingDetails.bookingId,
+                    }),
+                });
+
+                const { orderID } = await response.json();
+                return orderID;
+            },
+
+            onApprove: async (data, actions) => {
+                try {
+                    const response = await fetch('/api/capture-paypal-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            orderID: data.orderID
+                        }),
+                    });
+
+                    const { transactionId, error } = await response.json();
+
+                    if (error) {
+                        throw new Error(error);
+                    }
+
+                    // Payment successful
+                    this.handlePaymentSuccess({
+                        success: true,
+                        transactionId: transactionId,
+                        paymentMethod: 'paypal',
+                        bookingId: bookingDetails.bookingId
+                    });
+
+                } catch (error) {
+                    this.handlePaymentError(error.message);
+                }
+            },
+
+            onError: (err) => {
+                this.handlePaymentError(err.message || 'PayPal payment failed');
+            },
+
+            style: {
+                layout: 'vertical',
+                color: 'blue',
+                shape: 'rect',
+                label: 'paypal'
+            }
+
+        }).render(container);
+    }
+
+    handlePaymentSuccess(paymentResult) {
+        // Save payment result to localStorage or send to backend
+        localStorage.setItem('last_payment_result', JSON.stringify(paymentResult));
+        
+        // Redirect to success page with booking details
+        const successUrl = `/pages/payment-success.html?booking=${paymentResult.bookingId}&transaction=${paymentResult.transactionId}`;
+        window.location.href = successUrl;
+    }
+
+    handlePaymentError(errorMessage) {
+        // Show error to user
+        this.showPaymentError(errorMessage);
+        
+        // Log error for debugging
+        console.error('Payment error:', errorMessage);
+    }
+
+    showPaymentError(message) {
+        // Create or show error message element
+        let errorElement = document.getElementById('payment-error');
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.id = 'payment-error';
+            errorElement.className = 'payment-error';
+            errorElement.style.cssText = `
+                background: #fee;
+                border: 1px solid #fcc;
+                color: #c33;
+                padding: 1rem;
+                border-radius: 4px;
+                margin: 1rem 0;
+            `;
+            document.querySelector('.payment-container').prepend(errorElement);
+        }
+        
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            errorElement.style.display = 'none';
+        }, 5000);
+    }
+
     showPaymentLoading(show) {
-        const paymentButtons = document.querySelectorAll('.payment-method button');
+        const paymentButtons = document.querySelectorAll('.payment-button, .paypal-button');
+        const loadingElement = document.getElementById('payment-loading') || this.createLoadingElement();
+        
         paymentButtons.forEach(button => {
             if (show) {
                 button.disabled = true;
-                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                button.style.opacity = '0.6';
             } else {
                 button.disabled = false;
-                button.innerHTML = button.getAttribute('data-original-text');
+                button.style.opacity = '1';
             }
         });
+        
+        loadingElement.style.display = show ? 'block' : 'none';
     }
 
+    createLoadingElement() {
+        const loadingElement = document.createElement('div');
+        loadingElement.id = 'payment-loading';
+        loadingElement.innerHTML = `
+            <div style="text-align: center; padding: 2rem;">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Processing payment...</p>
+            </div>
+        `;
+        loadingElement.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 10000;
+            display: none;
+        `;
+        document.body.appendChild(loadingElement);
+        return loadingElement;
+    }
+
+    // Keep your existing validation methods (they're good!)
     validateCardDetails(cardDetails) {
         const errors = [];
-
-        // Card number validation (Luhn algorithm)
         if (!this.isValidCardNumber(cardDetails.cardNumber)) {
             errors.push('Invalid card number');
         }
-
-        // Expiry date validation
         if (!this.isValidExpiryDate(cardDetails.expiryDate)) {
             errors.push('Invalid expiry date');
         }
-
-        // CVV validation
         if (!this.isValidCVV(cardDetails.cvv)) {
             errors.push('Invalid CVV');
         }
-
         return errors;
     }
 
     isValidCardNumber(cardNumber) {
-        // Remove spaces and check if it's a number
         const cleanNumber = cardNumber.replace(/\s/g, '');
         if (!/^\d+$/.test(cleanNumber)) return false;
-
-        // Luhn algorithm implementation
         let sum = 0;
         let isEven = false;
-
         for (let i = cleanNumber.length - 1; i >= 0; i--) {
             let digit = parseInt(cleanNumber.charAt(i), 10);
-
             if (isEven) {
                 digit *= 2;
-                if (digit > 9) {
-                    digit -= 9;
-                }
+                if (digit > 9) digit -= 9;
             }
-
             sum += digit;
             isEven = !isEven;
         }
-
         return sum % 10 === 0;
     }
 
     isValidExpiryDate(expiryDate) {
         const [month, year] = expiryDate.split('/');
         if (!month || !year) return false;
-
         const now = new Date();
         const expiry = new Date(parseInt('20' + year), parseInt(month) - 1);
-        
         return expiry > now;
     }
 
@@ -194,7 +422,6 @@ class PaymentSystem {
 
     getCardType(cardNumber) {
         const cleanNumber = cardNumber.replace(/\s/g, '');
-        
         const patterns = {
             visa: /^4/,
             mastercard: /^5[1-5]/,
@@ -203,13 +430,9 @@ class PaymentSystem {
             diners: /^3(?:0[0-5]|[68])/,
             jcb: /^35/
         };
-
         for (const [type, pattern] of Object.entries(patterns)) {
-            if (pattern.test(cleanNumber)) {
-                return type;
-            }
+            if (pattern.test(cleanNumber)) return type;
         }
-
         return 'unknown';
     }
 
@@ -222,9 +445,23 @@ class PaymentSystem {
 
     async refundPayment(transactionId, amount) {
         try {
-            // Simulate refund processing
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
+            const response = await fetch('/api/refund-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    transactionId,
+                    amount
+                }),
+            });
+
+            const { success, error } = await response.json();
+
+            if (error) {
+                throw new Error(error);
+            }
+
             return {
                 success: true,
                 refundId: 'ref_' + Date.now().toString(36),

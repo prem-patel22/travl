@@ -8,6 +8,7 @@ class Navigation {
         this.setupMobileMenu();
         this.setupActiveLinks();
         this.setupScrollEffects();
+        this.addTestPageToNav(); // Add test page to navigation
     }
     
     setupMobileMenu() {
@@ -58,9 +59,41 @@ class Navigation {
             }
         });
     }
+
+    // Add test page to navigation (temporarily)
+    addTestPageToNav() {
+        // Only add test page in development environment
+        if (this.isDevelopment()) {
+            const navMenu = document.querySelector('.nav-menu');
+            if (navMenu && !document.querySelector('[href="pages/test-payment.html"]')) {
+                const testItem = document.createElement('li');
+                testItem.innerHTML = '<a href="pages/test-payment.html">Test Payments</a>';
+                navMenu.appendChild(testItem);
+                
+                // Update active links after adding new item
+                setTimeout(() => this.setupActiveLinks(), 0);
+            }
+        }
+    }
+
+    // Check if we're in development environment
+    isDevelopment() {
+        return window.location.hostname === 'localhost' || 
+               window.location.hostname === '127.0.0.1' ||
+               window.location.hostname.includes('dev-') ||
+               window.location.hostname.includes('test-');
+    }
+
+    // Method to remove test page when going to production
+    removeTestPageFromNav() {
+        const testLink = document.querySelector('[href="pages/test-payment.html"]');
+        if (testLink) {
+            testLink.closest('li').remove();
+        }
+    }
 }
 
 // Initialize navigation when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new Navigation();
+    window.navigation = new Navigation();
 });

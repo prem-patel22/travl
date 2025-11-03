@@ -1,4 +1,4 @@
-// Complete Booking System
+// Complete Booking System - Enhanced with Real Payments
 class BookingSystem {
     constructor() {
         this.currentStep = 1;
@@ -45,11 +45,11 @@ class BookingSystem {
 
     setupEventListeners() {
         // Navigation buttons
-        document.getElementById('btn-next-step').addEventListener('click', () => this.nextStep());
-        document.getElementById('btn-prev-step').addEventListener('click', () => this.previousStep());
+        document.getElementById('btn-next-step')?.addEventListener('click', () => this.nextStep());
+        document.getElementById('btn-prev-step')?.addEventListener('click', () => this.previousStep());
 
         // Guest form
-        document.getElementById('guest-form').addEventListener('submit', (e) => this.handleGuestSubmit(e));
+        document.getElementById('guest-form')?.addEventListener('submit', (e) => this.handleGuestSubmit(e));
 
         // Payment method selection
         document.querySelectorAll('.payment-method').forEach(method => {
@@ -57,7 +57,7 @@ class BookingSystem {
         });
 
         // Credit card form
-        document.getElementById('payment-form').addEventListener('submit', (e) => this.handlePaymentSubmit(e));
+        document.getElementById('payment-form')?.addEventListener('submit', (e) => this.handlePaymentSubmit(e));
 
         // Real-time validation
         this.setupRealTimeValidation();
@@ -65,6 +65,8 @@ class BookingSystem {
 
     renderBookingSteps() {
         const stepsContainer = document.querySelector('.booking-steps');
+        if (!stepsContainer) return;
+        
         stepsContainer.innerHTML = '';
 
         for (let i = 1; i <= this.totalSteps; i++) {
@@ -109,8 +111,32 @@ class BookingSystem {
         // Update booking summary
         this.updateBookingSummary();
 
+        // Initialize payment methods if we're on payment step
+        if (stepNumber === 3) {
+            this.initializePaymentStep();
+        }
+
         // Save current step
         this.currentStep = stepNumber;
+    }
+
+    initializePaymentStep() {
+        // Mount Stripe card element if it exists
+        if (window.paymentSystem && window.paymentSystem.mountCardElement) {
+            window.paymentSystem.mountCardElement('stripe-card-element');
+        }
+
+        // Render PayPal button if it exists
+        if (window.paymentSystem && window.paymentSystem.renderPayPalButton) {
+            const paypalContainer = document.getElementById('paypal-button-container');
+            if (paypalContainer) {
+                window.paymentSystem.renderPayPalButton('paypal-button-container', {
+                    totalAmount: this.bookingData.totalPrice,
+                    bookingId: this.generateBookingId(),
+                    customerEmail: this.bookingData.guests[0]?.email || ''
+                });
+            }
+        }
     }
 
     updateStepsVisualization(stepNumber) {
@@ -129,6 +155,8 @@ class BookingSystem {
     updateNavigationButtons(stepNumber) {
         const btnPrev = document.getElementById('btn-prev-step');
         const btnNext = document.getElementById('btn-next-step');
+
+        if (!btnPrev || !btnNext) return;
 
         // Show/hide previous button
         if (stepNumber === 1) {
@@ -238,7 +266,10 @@ class BookingSystem {
         this.togglePaymentForms(methodType);
 
         // Enable next button
-        document.getElementById('btn-next-step').disabled = false;
+        const btnNext = document.getElementById('btn-next-step');
+        if (btnNext) {
+            btnNext.disabled = false;
+        }
     }
 
     togglePaymentForms(methodType) {
@@ -252,33 +283,71 @@ class BookingSystem {
         if (selectedForm) {
             selectedForm.style.display = 'block';
         }
+
+        // Initialize Stripe card element if credit card is selected
+        if (methodType === 'credit-card' && window.paymentSystem) {
+            setTimeout(() => {
+                window.paymentSystem.mountCardElement('stripe-card-element');
+            }, 100);
+        }
     }
 
-    handlePaymentSubmit(e) {
+    async handlePaymentSubmit(e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const method = this.bookingData.payment.method;
-
-        if (method === 'credit-card') {
-            this.bookingData.payment.details = {
-                cardNumber: formData.get('cardNumber'),
-                cardHolder: formData.get('cardHolder'),
-                expiryDate: formData.get('expiryDate'),
-                cvv: formData.get('cvv')
-            };
-
-            // Validate credit card
-            if (!this.validateCreditCard()) {
-                this.showStepError('Please check your credit card information.');
-                return;
-            }
-        } else if (method === 'paypal') {
-            this.bookingData.payment.details = {
-                email: formData.get('paypalEmail')
-            };
+        
+        if (!this.bookingData.payment) {
+            this.showStepError('Please select a payment method.');
+            return;
         }
 
-        this.nextStep();
+        const method = this.bookingData.payment.method;
+
+        try {
+            this.showLoading(true);
+
+            if (method === 'credit-card') {
+                await this.processCreditCardPayment();
+            } else if (method === 'paypal') {
+                // PayPal is handled by the button, so just proceed
+                this.nextStep();
+                return;
+            }
+
+            this.nextStep();
+
+        } catch (error) {
+            this.showStepError(error.message);
+        } finally {
+            this.showLoading(false);
+        }
+    }
+
+    async processCreditCardPayment() {
+        if (!window.paymentSystem) {
+            throw new Error('Payment system not available');
+        }
+
+        const bookingDetails = {
+            customerName: `${this.bookingData.guests[0].firstName} ${this.bookingData.guests[0].lastName}`,
+            customerEmail: this.bookingData.guests[0].email,
+            totalAmount: Math.round(this.bookingData.totalPrice * 100), // Convert to cents
+            bookingId: this.generateBookingId()
+        };
+
+        const paymentResult = await window.paymentSystem.processCreditCardPayment(bookingDetails);
+
+        if (!paymentResult.success) {
+            throw new Error(paymentResult.error);
+        }
+
+        // Store payment result
+        this.bookingData.payment.details = {
+            transactionId: paymentResult.transactionId,
+            paymentMethod: paymentResult.paymentMethod,
+            status: 'succeeded'
+        };
+
+        return paymentResult;
     }
 
     validateCreditCard() {
@@ -317,7 +386,8 @@ class BookingSystem {
         this.showLoading(true);
 
         try {
-            // Simulate API call
+            // If payment was already processed (e.g., PayPal), use existing result
+            // Otherwise, process the booking
             const bookingResult = await this.processBooking();
             
             if (bookingResult.success) {
@@ -335,16 +405,24 @@ class BookingSystem {
     }
 
     async processBooking() {
-        // Simulate API call delay
+        // If payment was already processed, just create the booking
+        if (this.bookingData.payment?.details?.transactionId) {
+            return {
+                success: true,
+                bookingId: this.generateBookingId(),
+                message: 'Booking confirmed successfully'
+            };
+        }
+
+        // Otherwise, simulate API call for demo
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // Simulate payment processing
         const paymentSuccess = Math.random() > 0.1; // 90% success rate
 
         if (paymentSuccess) {
             return {
                 success: true,
-                bookingId: 'TRV' + Date.now().toString().slice(-8),
+                bookingId: this.generateBookingId(),
                 message: 'Booking confirmed successfully'
             };
         } else {
@@ -353,6 +431,10 @@ class BookingSystem {
                 error: 'Payment processing failed'
             };
         }
+    }
+
+    generateBookingId() {
+        return 'TRV' + Date.now().toString().slice(-8);
     }
 
     saveBookingToUser() {
@@ -366,6 +448,7 @@ class BookingSystem {
                 travelers: this.bookingData.travelers,
                 guests: this.bookingData.guests,
                 totalPrice: this.bookingData.totalPrice,
+                payment: this.bookingData.payment,
                 status: 'confirmed',
                 bookedAt: new Date().toISOString()
             };
@@ -485,6 +568,8 @@ class BookingSystem {
         };
 
         const cardPreview = document.querySelector('.card-preview');
+        if (!cardPreview) return;
+        
         let cardType = 'unknown';
 
         for (const [type, pattern] of Object.entries(cardTypes)) {
@@ -502,12 +587,14 @@ class BookingSystem {
         const loadingElement = document.getElementById('booking-loading');
         const bookingForm = document.getElementById('booking-form-container');
         
-        if (show) {
-            loadingElement.classList.add('active');
-            bookingForm.style.display = 'none';
-        } else {
-            loadingElement.classList.remove('active');
-            bookingForm.style.display = 'block';
+        if (loadingElement && bookingForm) {
+            if (show) {
+                loadingElement.classList.add('active');
+                bookingForm.style.display = 'none';
+            } else {
+                loadingElement.classList.remove('active');
+                bookingForm.style.display = 'block';
+            }
         }
     }
 
@@ -523,12 +610,14 @@ class BookingSystem {
 
         // Insert error message
         const currentStep = document.querySelector('.booking-step.active');
-        currentStep.appendChild(errorElement);
+        if (currentStep) {
+            currentStep.appendChild(errorElement);
 
-        // Remove error after 5 seconds
-        setTimeout(() => {
-            errorElement.remove();
-        }, 5000);
+            // Remove error after 5 seconds
+            setTimeout(() => {
+                errorElement.remove();
+            }, 5000);
+        }
     }
 }
 

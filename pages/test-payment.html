@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Test - travl</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Payment System Test</h1>
+        
+        <!-- Test Credit Card Payment -->
+        <div class="test-section">
+            <h2>1. Credit Card Test (Stripe)</h2>
+            <div id="stripe-card-element" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;"></div>
+            <button onclick="testCreditCardPayment()" class="btn-primary">Test Credit Card Payment</button>
+            <div id="stripe-result"></div>
+        </div>
+
+        <!-- Test PayPal Payment -->
+        <div class="test-section">
+            <h2>2. PayPal Test</h2>
+            <div id="paypal-button-container"></div>
+            <div id="paypal-result"></div>
+        </div>
+
+        <!-- Test Booking Integration -->
+        <div class="test-section">
+            <h2>3. Booking Integration Test</h2>
+            <button onclick="testBookingFlow()" class="btn-primary">Test Complete Booking Flow</button>
+            <div id="booking-result"></div>
+        </div>
+
+        <!-- Debug Info -->
+        <div class="test-section">
+            <h2>Debug Information</h2>
+            <pre id="debug-info"></pre>
+        </div>
+    </div>
+
+    <script src="../js/components/payment.js"></script>
+    <script src="../js/booking.js"></script>
+    <script src="../js/test-payment.js"></script>
+</body>
+</html>

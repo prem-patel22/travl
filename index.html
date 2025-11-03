@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>travl - Your Travel Companion</title>
+    <title data-i18n="common.welcome">travl - Your Travel Companion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pages/home.css">
@@ -13,25 +13,25 @@
     <header id="main-header">
         <nav class="navbar">
             <div class="nav-brand">
-                <h1><a href="index.html"><i class="fas fa-plane"></i> travl</a></h1>
+                <h1><a href="index.html"><i class="fas fa-plane"></i> <span data-i18n="common.brand_name">travl</span></a></h1>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="pages/destinations.html">Destinations</a></li>
-                <li><a href="pages/bookings.html" class="protected-route">My Bookings</a></li>
-                <li><a href="pages/profile.html" class="protected-route">Profile</a></li>
-                <li><a href="pages/about.html">About</a></li>
-                <li><a href="pages/contact.html">Contact</a></li>
+                <li><a href="index.html" class="active" data-i18n="navigation.home">Home</a></li>
+                <li><a href="pages/destinations.html" data-i18n="navigation.destinations">Destinations</a></li>
+                <li><a href="pages/bookings.html" class="protected-route" data-i18n="navigation.bookings">My Bookings</a></li>
+                <li><a href="pages/profile.html" class="protected-route" data-i18n="navigation.profile">Profile</a></li>
+                <li><a href="pages/about.html" data-i18n="navigation.about">About</a></li>
+                <li><a href="pages/contact.html" data-i18n="navigation.contact">Contact</a></li>
             </ul>
             <div class="nav-actions">
                 <div class="user-greeting" id="user-greeting" style="display: none;">
-                    <span>Welcome, </span>
+                    <span data-i18n="common.welcome_short">Welcome, </span>
                     <span id="username-display"></span>
-                    <button class="btn-logout" id="btn-logout">Logout</button>
+                    <button class="btn-logout" id="btn-logout" data-i18n="common.logout">Logout</button>
                 </div>
                 <div class="auth-buttons" id="auth-buttons">
-                    <button class="btn-login" id="btn-login">Login</button>
-                    <button class="btn-signup" id="btn-signup">Sign Up</button>
+                    <button class="btn-login" id="btn-login" data-i18n="common.login">Login</button>
+                    <button class="btn-signup" id="btn-signup" data-i18n="common.signup">Sign Up</button>
                 </div>
             </div>
             <div class="hamburger">
@@ -48,27 +48,27 @@
             <span class="close-modal">&times;</span>
             <div class="modal-header">
                 <i class="fas fa-user-circle"></i>
-                <h2>Login to travl</h2>
+                <h2 data-i18n="auth.login_title">Login to travl</h2>
             </div>
             <form id="login-form" class="auth-form">
                 <div class="form-group">
-                    <label for="login-email">Email</label>
+                    <label for="login-email" data-i18n="auth.email">Email</label>
                     <div class="input-with-icon">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+                        <input type="email" id="login-email" name="email" data-i18n="auth.email_placeholder" placeholder="Enter your email" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="login-password">Password</label>
+                    <label for="login-password" data-i18n="auth.password">Password</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                        <input type="password" id="login-password" name="password" data-i18n="auth.password_placeholder" placeholder="Enter your password" required>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary btn-full">Login</button>
+                <button type="submit" class="btn-primary btn-full" data-i18n="auth.login_button">Login</button>
             </form>
             <div class="auth-switch">
-                <p>Don't have an account? <a href="#" id="switch-to-signup">Sign up</a></p>
+                <p data-i18n="auth.no_account">Don't have an account? <a href="#" id="switch-to-signup" data-i18n="auth.signup_link">Sign up</a></p>
             </div>
             <div id="login-error" class="error-message" style="display: none;"></div>
         </div>
@@ -80,41 +80,41 @@
             <span class="close-modal">&times;</span>
             <div class="modal-header">
                 <i class="fas fa-user-plus"></i>
-                <h2>Create Account</h2>
+                <h2 data-i18n="auth.signup_title">Create Account</h2>
             </div>
             <form id="signup-form" class="auth-form">
                 <div class="form-group">
-                    <label for="signup-name">Full Name</label>
+                    <label for="signup-name" data-i18n="auth.full_name">Full Name</label>
                     <div class="input-with-icon">
                         <i class="fas fa-user"></i>
-                        <input type="text" id="signup-name" name="name" placeholder="Enter your full name" required>
+                        <input type="text" id="signup-name" name="name" data-i18n="auth.name_placeholder" placeholder="Enter your full name" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="signup-email">Email</label>
+                    <label for="signup-email" data-i18n="auth.email">Email</label>
                     <div class="input-with-icon">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                        <input type="email" id="signup-email" name="email" data-i18n="auth.email_placeholder" placeholder="Enter your email" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="signup-password">Password</label>
+                    <label for="signup-password" data-i18n="auth.password">Password</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="signup-password" name="password" placeholder="Create a password" minlength="6" required>
+                        <input type="password" id="signup-password" name="password" data-i18n="auth.create_password_placeholder" placeholder="Create a password" minlength="6" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="signup-confirm-password">Confirm Password</label>
+                    <label for="signup-confirm-password" data-i18n="auth.confirm_password">Confirm Password</label>
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="signup-confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
+                        <input type="password" id="signup-confirm-password" name="confirmPassword" data-i18n="auth.confirm_password_placeholder" placeholder="Confirm your password" required>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary btn-full">Create Account</button>
+                <button type="submit" class="btn-primary btn-full" data-i18n="auth.create_account_button">Create Account</button>
             </form>
             <div class="auth-switch">
-                <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+                <p data-i18n="auth.have_account">Already have an account? <a href="#" id="switch-to-login" data-i18n="auth.login_link">Login</a></p>
             </div>
             <div id="signup-error" class="error-message" style="display: none;"></div>
             <div id="signup-success" class="success-message" style="display: none;"></div>
@@ -128,40 +128,40 @@
         </div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Discover Your Next Adventure</h1>
-                <p class="hero-subtitle">Plan, book, and manage your travels all in one place with travl</p>
+                <h1 class="hero-title" data-i18n="home.hero_title">Discover Your Next Adventure</h1>
+                <p class="hero-subtitle" data-i18n="home.hero_subtitle">Plan, book, and manage your travels all in one place with travl</p>
                 
                 <div class="search-box">
                     <div class="search-tabs">
-                        <button class="search-tab active">Flights</button>
-                        <button class="search-tab">Hotels</button>
-                        <button class="search-tab">Packages</button>
+                        <button class="search-tab active" data-i18n="search.flights">Flights</button>
+                        <button class="search-tab" data-i18n="search.hotels">Hotels</button>
+                        <button class="search-tab" data-i18n="search.packages">Packages</button>
                     </div>
                     
                     <div class="search-form">
                         <div class="search-field">
                             <i class="fas fa-map-marker-alt"></i>
-                            <input type="text" placeholder="Where do you want to go?">
+                            <input type="text" data-i18n="search.destination_placeholder" placeholder="Where do you want to go?">
                         </div>
                         <div class="search-field">
                             <i class="fas fa-calendar"></i>
-                            <input type="text" placeholder="Check-in" onfocus="(this.type='date')">
+                            <input type="text" data-i18n="search.checkin_placeholder" placeholder="Check-in" onfocus="(this.type='date')">
                         </div>
                         <div class="search-field">
                             <i class="fas fa-calendar"></i>
-                            <input type="text" placeholder="Check-out" onfocus="(this.type='date')">
+                            <input type="text" data-i18n="search.checkout_placeholder" placeholder="Check-out" onfocus="(this.type='date')">
                         </div>
                         <div class="search-field">
                             <i class="fas fa-user"></i>
                             <select>
-                                <option value="1">1 Traveler</option>
-                                <option value="2">2 Travelers</option>
-                                <option value="3">3 Travelers</option>
-                                <option value="4">4 Travelers</option>
-                                <option value="5">5+ Travelers</option>
+                                <option value="1" data-i18n="search.traveler_single">1 Traveler</option>
+                                <option value="2" data-i18n="search.travelers_multiple">2 Travelers</option>
+                                <option value="3" data-i18n="search.travelers_multiple">3 Travelers</option>
+                                <option value="4" data-i18n="search.travelers_multiple">4 Travelers</option>
+                                <option value="5" data-i18n="search.travelers_multiple_plus">5+ Travelers</option>
                             </select>
                         </div>
-                        <button class="btn-search">
+                        <button class="btn-search" data-i18n="common.search">
                             <i class="fas fa-search"></i>
                             Search
                         </button>
@@ -175,37 +175,37 @@
     <section class="features">
         <div class="container">
             <div class="section-header">
-                <h2>Why Choose travl?</h2>
-                <p>Experience travel planning like never before</p>
+                <h2 data-i18n="home.why_choose">Why Choose travl?</h2>
+                <p data-i18n="home.why_choose_subtitle">Experience travel planning like never before</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Quick & Easy</h3>
-                    <p>Book your trips in minutes with our intuitive platform</p>
+                    <h3 data-i18n="features.quick_easy">Quick & Easy</h3>
+                    <p data-i18n="features.quick_easy_desc">Book your trips in minutes with our intuitive platform</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Secure Payments</h3>
-                    <p>Your payments and data are protected with bank-level security</p>
+                    <h3 data-i18n="features.secure_payments">Secure Payments</h3>
+                    <p data-i18n="features.secure_payments_desc">Your payments and data are protected with bank-level security</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>Get help anytime with our round-the-clock customer support</p>
+                    <h3 data-i18n="features.support">24/7 Support</h3>
+                    <p data-i18n="features.support_desc">Get help anytime with our round-the-clock customer support</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-tag"></i>
                     </div>
-                    <h3>Best Prices</h3>
-                    <p>We guarantee the best prices for flights and hotels</p>
+                    <h3 data-i18n="features.best_prices">Best Prices</h3>
+                    <p data-i18n="features.best_prices_desc">We guarantee the best prices for flights and hotels</p>
                 </div>
             </div>
         </div>
@@ -215,23 +215,23 @@
     <section class="destinations">
         <div class="container">
             <div class="section-header">
-                <h2>Popular Destinations</h2>
-                <p>Explore the world's most amazing places</p>
+                <h2 data-i18n="home.popular_destinations">Popular Destinations</h2>
+                <p data-i18n="home.popular_destinations_subtitle">Explore the world's most amazing places</p>
             </div>
             <div class="destinations-grid">
                 <div class="destination-card">
                     <div class="destination-image">
                         <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Bali">
                         <div class="destination-overlay">
-                            <div class="destination-price">From $899</div>
+                            <div class="destination-price" data-i18n="home.price_from_bali">From $899</div>
                         </div>
                     </div>
                     <div class="destination-content">
-                        <h3>Bali, Indonesia</h3>
-                        <p>Island of Gods with beautiful beaches and temples</p>
+                        <h3 data-i18n="destinations.bali">Bali, Indonesia</h3>
+                        <p data-i18n="destinations.bali_desc">Island of Gods with beautiful beaches and temples</p>
                         <div class="destination-meta">
                             <span><i class="fas fa-star"></i> 4.8</span>
-                            <span><i class="fas fa-clock"></i> 7 Days</span>
+                            <span><i class="fas fa-clock"></i> <span data-i18n="common.days_7">7 Days</span></span>
                         </div>
                     </div>
                 </div>
@@ -240,15 +240,15 @@
                     <div class="destination-image">
                         <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Paris">
                         <div class="destination-overlay">
-                            <div class="destination-price">From $1,199</div>
+                            <div class="destination-price" data-i18n="home.price_from_paris">From $1,199</div>
                         </div>
                     </div>
                     <div class="destination-content">
-                        <h3>Paris, France</h3>
-                        <p>The city of love with iconic landmarks and cuisine</p>
+                        <h3 data-i18n="destinations.paris">Paris, France</h3>
+                        <p data-i18n="destinations.paris_desc">The city of love with iconic landmarks and cuisine</p>
                         <div class="destination-meta">
                             <span><i class="fas fa-star"></i> 4.9</span>
-                            <span><i class="fas fa-clock"></i> 5 Days</span>
+                            <span><i class="fas fa-clock"></i> <span data-i18n="common.days_5">5 Days</span></span>
                         </div>
                     </div>
                 </div>
@@ -257,15 +257,15 @@
                     <div class="destination-image">
                         <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Tokyo">
                         <div class="destination-overlay">
-                            <div class="destination-price">From $1,499</div>
+                            <div class="destination-price" data-i18n="home.price_from_tokyo">From $1,499</div>
                         </div>
                     </div>
                     <div class="destination-content">
-                        <h3>Tokyo, Japan</h3>
-                        <p>Modern metropolis with rich culture and technology</p>
+                        <h3 data-i18n="destinations.tokyo">Tokyo, Japan</h3>
+                        <p data-i18n="destinations.tokyo_desc">Modern metropolis with rich culture and technology</p>
                         <div class="destination-meta">
                             <span><i class="fas fa-star"></i> 4.7</span>
-                            <span><i class="fas fa-clock"></i> 6 Days</span>
+                            <span><i class="fas fa-clock"></i> <span data-i18n="common.days_6">6 Days</span></span>
                         </div>
                     </div>
                 </div>
@@ -277,12 +277,145 @@
     <section class="cta">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to Start Your Journey?</h2>
-                <p>Join thousands of travelers who trust travl for their adventures</p>
-                <button class="btn-primary btn-large" id="cta-signup">
+                <h2 data-i18n="home.cta_title">Ready to Start Your Journey?</h2>
+                <p data-i18n="home.cta_subtitle">Join thousands of travelers who trust travl for their adventures</p>
+                <button class="btn-primary btn-large" id="cta-signup" data-i18n="home.get_started">
                     <i class="fas fa-rocket"></i>
                     Get Started Today
                 </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Search Section -->
+    <section class="advanced-search-section">
+        <div class="container">
+            <div class="advanced-search">
+                <div class="search-header">
+                    <h2 data-i18n="search.find_perfect_trip">Find Your Perfect Trip</h2>
+                    <div class="search-actions">
+                        <button class="btn-outline" id="advanced-filters-btn" data-i18n="search.advanced_filters">
+                            <i class="fas fa-sliders-h"></i>
+                            Advanced Filters
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search-tabs">
+                    <button class="search-tab active" data-type="all" data-i18n="search.all">All</button>
+                    <button class="search-tab" data-type="destination" data-i18n="search.destinations">Destinations</button>
+                    <button class="search-tab" data-type="hotel" data-i18n="search.hotels">Hotels</button>
+                    <button class="search-tab" data-type="flight" data-i18n="search.flights">Flights</button>
+                    <button class="search-tab" data-type="package" data-i18n="search.packages">Packages</button>
+                </div>
+
+                <div class="search-form-advanced">
+                    <div class="search-field-advanced autocomplete-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" data-i18n="search.destination_placeholder" placeholder="Where do you want to go?">
+                        <div class="autocomplete-results" id="autocomplete-results"></div>
+                    </div>
+
+                    <div class="search-field-advanced">
+                        <i class="fas fa-calendar"></i>
+                        <input type="text" id="checkin-date" data-i18n="search.checkin_date" placeholder="Check-in Date" readonly>
+                    </div>
+
+                    <div class="search-field-advanced">
+                        <i class="fas fa-calendar"></i>
+                        <input type="text" id="checkout-date" data-i18n="search.checkout_date" placeholder="Check-out Date" readonly>
+                    </div>
+
+                    <div class="search-field-advanced">
+                        <i class="fas fa-user"></i>
+                        <select id="travelers">
+                            <option value="1" data-i18n="search.traveler_single">1 Traveler</option>
+                            <option value="2" data-i18n="search.travelers_multiple">2 Travelers</option>
+                            <option value="3" data-i18n="search.travelers_multiple">3 Travelers</option>
+                            <option value="4" data-i18n="search.travelers_multiple">4 Travelers</option>
+                            <option value="5" data-i18n="search.travelers_multiple_plus">5+ Travelers</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-primary btn-search-advanced" data-i18n="common.search">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </div>
+
+                <!-- Quick Filters -->
+                <div class="quick-filters">
+                    <div class="filter-group">
+                        <h4 data-i18n="filters.price_range">Price Range</h4>
+                        <input type="range" id="price-range" min="0" max="5000" value="5000" step="100">
+                        <span id="price-value" data-i18n="filters.up_to_5000">Up to $5000</span>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4 data-i18n="filters.amenities">Amenities</h4>
+                        <div class="quick-filters">
+                            <button class="quick-filter" data-filter="amenity" data-value="wifi" data-i18n="filters.wifi">WiFi</button>
+                            <button class="quick-filter" data-filter="amenity" data-value="pool" data-i18n="filters.pool">Pool</button>
+                            <button class="quick-filter" data-filter="amenity" data-value="spa" data-i18n="filters.spa">Spa</button>
+                            <button class="quick-filter" data-filter="amenity" data-value="breakfast" data-i18n="filters.breakfast">Breakfast</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4 data-i18n="filters.activities">Activities</h4>
+                        <div class="quick-filters">
+                            <button class="quick-filter" data-filter="activity" data-value="beach" data-i18n="filters.beach">Beach</button>
+                            <button class="quick-filter" data-filter="activity" data-value="hiking" data-i18n="filters.hiking">Hiking</button>
+                            <button class="quick-filter" data-filter="activity" data-value="culture" data-i18n="filters.culture">Culture</button>
+                            <button class="quick-filter" data-filter="activity" data-value="adventure" data-i18n="filters.adventure">Adventure</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Results -->
+            <div class="search-results-header">
+                <div class="results-info">
+                    <h3 data-i18n="search.search_results">Search Results</h3>
+                    <span class="results-count" id="results-count" data-i18n="search.results_count">0 results</span>
+                </div>
+                <div class="results-sort">
+                    <select class="sort-select" id="sort-results">
+                        <option value="relevance" data-i18n="search.sort_relevance">Sort by: Relevance</option>
+                        <option value="price-low" data-i18n="search.sort_price_low">Price: Low to High</option>
+                        <option value="price-high" data-i18n="search.sort_price_high">Price: High to Low</option>
+                        <option value="rating" data-i18n="search.sort_rating">Highest Rated</option>
+                        <option value="popular" data-i18n="search.sort_popular">Most Popular</option>
+                    </select>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <button class="view-btn" data-view="map">
+                            <i class="fas fa-map"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map and Results Layout -->
+            <div class="search-with-map">
+                <div class="search-results-container">
+                    <div class="search-results" id="search-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div class="map-wrapper">
+                        <div id="search-map"></div>
+                    </div>
+                    <div class="map-item-details" id="map-item-details">
+                        <!-- Item details will be shown here -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -293,8 +426,8 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-brand">
-                        <h3><i class="fas fa-plane"></i> travl</h3>
-                        <p>Your trusted travel companion for unforgettable journeys around the world.</p>
+                        <h3><i class="fas fa-plane"></i> <span data-i18n="common.brand_name">travl</span></h3>
+                        <p data-i18n="footer.tagline">Your trusted travel companion for unforgettable journeys around the world.</p>
                     </div>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -304,174 +437,46 @@
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+                    <h4 data-i18n="footer.quick_links">Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="pages/destinations.html">Destinations</a></li>
-                        <li><a href="pages/about.html">About Us</a></li>
-                        <li><a href="pages/contact.html">Contact</a></li>
+                        <li><a href="index.html" data-i18n="navigation.home">Home</a></li>
+                        <li><a href="pages/destinations.html" data-i18n="navigation.destinations">Destinations</a></li>
+                        <li><a href="pages/about.html" data-i18n="navigation.about">About Us</a></li>
+                        <li><a href="pages/contact.html" data-i18n="navigation.contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Support</h4>
+                    <h4 data-i18n="footer.support">Support</h4>
                     <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#" data-i18n="footer.help_center">Help Center</a></li>
+                        <li><a href="#" data-i18n="footer.privacy_policy">Privacy Policy</a></li>
+                        <li><a href="#" data-i18n="footer.terms">Terms of Service</a></li>
+                        <li><a href="#" data-i18n="footer.faqs">FAQs</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Contact Info</h4>
+                    <h4 data-i18n="footer.contact_info">Contact Info</h4>
                     <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, Adventure City</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span data-i18n="footer.address">123 Travel Street, Adventure City</span></p>
                         <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
                         <p><i class="fas fa-envelope"></i> hello@travl.com</p>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 travl. All rights reserved. | Designed with <i class="fas fa-heart"></i> for travelers</p>
+                <p>&copy; 2023 <span data-i18n="common.brand_name">travl</span>. <span data-i18n="footer.rights_reserved">All rights reserved.</span> | <span data-i18n="footer.designed_with_love">Designed with <i class="fas fa-heart"></i> for travelers</span></p>
             </div>
         </div>
     </footer>
 
-    <!-- Advanced Search Section -->
-<section class="advanced-search-section">
-    <div class="container">
-        <div class="advanced-search">
-            <div class="search-header">
-                <h2>Find Your Perfect Trip</h2>
-                <div class="search-actions">
-                    <button class="btn-outline" id="advanced-filters-btn">
-                        <i class="fas fa-sliders-h"></i>
-                        Advanced Filters
-                    </button>
-                </div>
-            </div>
-
-            <div class="search-tabs">
-                <button class="search-tab active" data-type="all">All</button>
-                <button class="search-tab" data-type="destination">Destinations</button>
-                <button class="search-tab" data-type="hotel">Hotels</button>
-                <button class="search-tab" data-type="flight">Flights</button>
-                <button class="search-tab" data-type="package">Packages</button>
-            </div>
-
-            <div class="search-form-advanced">
-                <div class="search-field-advanced autocomplete-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Where do you want to go?">
-                    <div class="autocomplete-results" id="autocomplete-results"></div>
-                </div>
-
-                <div class="search-field-advanced">
-                    <i class="fas fa-calendar"></i>
-                    <input type="text" id="checkin-date" placeholder="Check-in Date" readonly>
-                </div>
-
-                <div class="search-field-advanced">
-                    <i class="fas fa-calendar"></i>
-                    <input type="text" id="checkout-date" placeholder="Check-out Date" readonly>
-                </div>
-
-                <div class="search-field-advanced">
-                    <i class="fas fa-user"></i>
-                    <select id="travelers">
-                        <option value="1">1 Traveler</option>
-                        <option value="2">2 Travelers</option>
-                        <option value="3">3 Travelers</option>
-                        <option value="4">4 Travelers</option>
-                        <option value="5">5+ Travelers</option>
-                    </select>
-                </div>
-
-                <button class="btn-primary btn-search-advanced">
-                    <i class="fas fa-search"></i>
-                    Search
-                </button>
-            </div>
-
-            <!-- Quick Filters -->
-            <div class="quick-filters">
-                <div class="filter-group">
-                    <h4>Price Range</h4>
-                    <input type="range" id="price-range" min="0" max="5000" value="5000" step="100">
-                    <span id="price-value">Up to $5000</span>
-                </div>
-
-                <div class="filter-group">
-                    <h4>Amenities</h4>
-                    <div class="quick-filters">
-                        <button class="quick-filter" data-filter="amenity" data-value="wifi">WiFi</button>
-                        <button class="quick-filter" data-filter="amenity" data-value="pool">Pool</button>
-                        <button class="quick-filter" data-filter="amenity" data-value="spa">Spa</button>
-                        <button class="quick-filter" data-filter="amenity" data-value="breakfast">Breakfast</button>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <h4>Activities</h4>
-                    <div class="quick-filters">
-                        <button class="quick-filter" data-filter="activity" data-value="beach">Beach</button>
-                        <button class="quick-filter" data-filter="activity" data-value="hiking">Hiking</button>
-                        <button class="quick-filter" data-filter="activity" data-value="culture">Culture</button>
-                        <button class="quick-filter" data-filter="activity" data-value="adventure">Adventure</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Search Results -->
-        <div class="search-results-header">
-            <div class="results-info">
-                <h3>Search Results</h3>
-                <span class="results-count" id="results-count">0 results</span>
-            </div>
-            <div class="results-sort">
-                <select class="sort-select" id="sort-results">
-                    <option value="relevance">Sort by: Relevance</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="rating">Highest Rated</option>
-                    <option value="popular">Most Popular</option>
-                </select>
-                <div class="view-toggle">
-                    <button class="view-btn active" data-view="grid">
-                        <i class="fas fa-th"></i>
-                    </button>
-                    <button class="view-btn" data-view="list">
-                        <i class="fas fa-list"></i>
-                    </button>
-                    <button class="view-btn" data-view="map">
-                        <i class="fas fa-map"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Map and Results Layout -->
-        <div class="search-with-map">
-            <div class="search-results-container">
-                <div class="search-results" id="search-results">
-                    <!-- Results will be populated here -->
-                </div>
-            </div>
-            <div class="map-container">
-                <div class="map-wrapper">
-                    <div id="search-map"></div>
-                </div>
-                <div class="map-item-details" id="map-item-details">
-                    <!-- Item details will be shown here -->
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- Language Switcher (will be injected by JavaScript) -->
+    <div id="language-switcher-container"></div>
 
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/components/navigation.js"></script>
     <script src="js/pages/home.js"></script>
+    <!-- Add i18n script -->
+    <script src="js/i18n.js"></script>
 </body>
 </html>

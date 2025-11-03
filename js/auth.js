@@ -94,7 +94,7 @@ class AuthSystem {
         if (user) {
             this.login(user);
         } else {
-            this.showLoginError('Invalid email or password. Please try again or create an account.');
+            this.showLoginError('invalid_credentials');
         }
     }
 
@@ -108,17 +108,17 @@ class AuthSystem {
 
         // Validation
         if (password !== confirmPassword) {
-            this.showSignupError('Passwords do not match.');
+            this.showSignupError('password_mismatch');
             return;
         }
 
         if (password.length < 6) {
-            this.showSignupError('Password must be at least 6 characters long.');
+            this.showSignupError('password_too_short');
             return;
         }
 
         if (this.users.find(u => u.email === email)) {
-            this.showSignupError('An account with this email already exists. Please login.');
+            this.showSignupError('email_exists');
             return;
         }
 
@@ -134,7 +134,7 @@ class AuthSystem {
 
         this.users.push(newUser);
         this.saveUsers();
-        this.showSignupSuccess('Account created successfully! Please login.');
+        this.showSignupSuccess('account_created');
         
         // Clear form
         e.target.reset();
@@ -151,14 +151,14 @@ class AuthSystem {
         localStorage.setItem('travl_current_user', JSON.stringify(user));
         this.updateUI();
         this.hideLoginModal();
-        this.showNotification(`Welcome back, ${user.name}!`);
+        this.showNotification('welcome_back', { name: user.name });
     }
 
     logout() {
         this.currentUser = null;
         localStorage.removeItem('travl_current_user');
         this.updateUI();
-        this.showNotification('You have been logged out.');
+        this.showNotification('logged_out');
     }
 
     checkExistingSession() {
@@ -187,7 +187,7 @@ class AuthSystem {
         if (!this.currentUser) {
             e.preventDefault();
             this.showLoginModal();
-            this.showLoginError('Please login to access this page.');
+            this.showLoginError('login_required');
         }
     }
 
@@ -199,26 +199,54 @@ class AuthSystem {
         return this.currentUser;
     }
 
+    // Translation helper method
+    t(key, params = {}) {
+        // Use the global i18n instance if available
+        if (window.i18n && typeof window.i18n.t === 'function') {
+            return window.i18n.t(key, params);
+        }
+        
+        // Fallback to English if i18n is not loaded
+        const fallbackTranslations = {
+            'auth.invalid_credentials': 'Invalid email or password. Please try again or create an account.',
+            'auth.password_mismatch': 'Passwords do not match.',
+            'auth.password_too_short': 'Password must be at least 6 characters long.',
+            'auth.email_exists': 'An account with this email already exists. Please login.',
+            'auth.account_created': 'Account created successfully! Please login.',
+            'auth.login_required': 'Please login to access this page.',
+            'notification.welcome_back': 'Welcome back, {name}!',
+            'notification.logged_out': 'You have been logged out.'
+        };
+        
+        let translation = fallbackTranslations[key] || key;
+        
+        // Replace parameters
+        Object.keys(params).forEach(param => {
+            translation = translation.replace(`{${param}}`, params[param]);
+        });
+        
+        return translation;
+    }
+
     showLoginError(message) {
         const errorElement = document.getElementById('login-error');
-        errorElement.textContent = message;
+        errorElement.textContent = this.t(`auth.${message}`) || message;
         errorElement.style.display = 'block';
     }
 
     showSignupError(message) {
         const errorElement = document.getElementById('signup-error');
-        errorElement.textContent = message;
+        errorElement.textContent = this.t(`auth.${message}`) || message;
         errorElement.style.display = 'block';
     }
 
     showSignupSuccess(message) {
         const successElement = document.getElementById('signup-success');
-        successElement.textContent = message;
+        successElement.textContent = this.t(`auth.${message}`) || message;
         successElement.style.display = 'block';
     }
 
-    showNotification(message) {
-        // Create a simple notification
+    showNotification(message, params = {}) {
         const notification = document.createElement('div');
         notification.style.cssText = `
             position: fixed;
@@ -233,7 +261,7 @@ class AuthSystem {
             animation: slideInRight 0.3s ease;
             font-weight: 500;
         `;
-        notification.textContent = message;
+        notification.textContent = this.t(`notification.${message}`, params) || message;
         document.body.appendChild(notification);
 
         setTimeout(() => {
